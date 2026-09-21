@@ -1,0 +1,15 @@
+{
+  "model": "jev-quantum-latest",
+  "state": "The customer has been waiting since Monday.",
+  "questions": {
+    "urgency": {
+      "type": "score",
+      "instructions": "How soon must this be handled?",
+      "criteria": [
+        "Can wait a week",
+        "Should be handled this week",
+        "Needs a reply today"
+      ]
+    }
+  }
+}

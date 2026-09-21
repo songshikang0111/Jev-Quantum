@@ -1,0 +1,6 @@
+services:
+  jev-quantum:
+    build: .
+    ports:
+      - "3000:3000"
+    command: ["--bind", "0.0.0.0:3000", "--rng-mode", "direct"]

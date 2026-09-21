@@ -1,0 +1,29 @@
+# Rust
+/target
+**/*.rs.bk
+
+# Secrets — keep .env.example
+.env
+.env.local
+.env.*.local
+
+# Generated bench output and demo embeds
+reports/
+web/last-report.js
+*.tmp
+tmp_*.py
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Local agent / SpecStory session history (may contain keys)
+.specstory/
+.cursorindexingignore

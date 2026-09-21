@@ -1,0 +1,30 @@
+{
+  "model": "jev-quantum-latest",
+  "state": {
+    "ticket": "I was charged twice. Please refund today."
+  },
+  "questions": {
+    "refund": {
+      "type": "noul",
+      "instructions": "Is a refund requested?"
+    },
+    "department": {
+      "type": "choice",
+      "instructions": "Which team should handle this?",
+      "criteria": {
+        "billing": "Payments",
+        "technical": "Bugs",
+        "sales": "Pricing"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How urgent?",
+      "criteria": [
+        "Can wait a week",
+        "This week",
+        "Today"
+      ]
+    }
+  }
+}

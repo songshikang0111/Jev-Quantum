@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "run_id": "20260921T000000",
+  "scenario": "maze",
+  "started_at": "2026-09-21T00:00:00Z",
+  "finished_at": "2026-09-21T00:00:01Z",
+  "config": {
+    "targets": "local",
+    "api_key": "redacted"
+  },
+  "targets": [
+    {
+      "name": "local",
+      "model": "jev-quantum-latest",
+      "endpoint": "http://127.0.0.1:3000/v1/systemone",
+      "stats": {
+        "requests": 6,
+        "ok": 6,
+        "qps": 120000.0,
+        "p50_ns": 4000,
+        "p95_ns": 9000,
+        "p99_ns": 12000,
+        "max_ns": 15000,
+        "mean_ns": 5000,
+        "errors": {}
+      },
+      "latency_samples": [3000, 4000, 5000, 6000, 9000, 4000],
+      "trajectory": {
+        "steps": [
+          {"x": 1, "y": 0, "action": "RIGHT", "collision": false, "latency_ns": 4000, "throttle_ns": 0, "kind": "decision"},
+          {"x": 1, "y": 0, "action": "PACE", "collision": false, "latency_ns": 0, "throttle_ns": 80000000, "kind": "pace_gap"},
+          {"x": 2, "y": 0, "action": "RIGHT", "collision": false, "latency_ns": 3500, "throttle_ns": 80000000, "kind": "decision"},
+          {"x": 2, "y": 1, "action": "DOWN", "collision": false, "latency_ns": 4200},
+          {"x": 2, "y": 2, "action": "DOWN", "collision": false, "latency_ns": 3800},
+          {"x": 3, "y": 2, "action": "RIGHT", "collision": false, "latency_ns": 4100},
+          {"x": 3, "y": 3, "action": "DOWN", "collision": false, "latency_ns": 3900}
+        ],
+        "success": true,
+        "exit_step": 6
+      }
+    }
+  ],
+  "maze": {
+    "width": 4,
+    "height": 4,
+    "seed": 7,
+    "start": [0, 0],
+    "exit": [3, 3],
+    "cells": [
+      {"n": true, "e": false, "s": true, "w": true},
+      {"n": true, "e": false, "s": true, "w": false},
+      {"n": true, "e": true, "s": false, "w": false},
+      {"n": true, "e": true, "s": true, "w": true},
+      {"n": true, "e": true, "s": false, "w": true},
+      {"n": true, "e": true, "s": true, "w": true},
+      {"n": false, "e": true, "s": false, "w": true},
+      {"n": true, "e": true, "s": true, "w": true},
+      {"n": false, "e": false, "s": true, "w": true},
+      {"n": true, "e": false, "s": true, "w": false},
+      {"n": false, "e": false, "s": true, "w": false},
+      {"n": true, "e": true, "s": false, "w": false},
+      {"n": true, "e": false, "s": true, "w": true},
+      {"n": true, "e": false, "s": true, "w": false},
+      {"n": true, "e": false, "s": true, "w": false},
+      {"n": false, "e": true, "s": true, "w": false}
+    ]
+  }
+}

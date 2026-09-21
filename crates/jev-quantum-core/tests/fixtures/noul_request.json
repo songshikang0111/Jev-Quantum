@@ -1,0 +1,14 @@
+{
+  "model": "jev-quantum-latest",
+  "state": "I was charged twice for my subscription.",
+  "questions": {
+    "refund": {
+      "type": "noul",
+      "instructions": "Is the customer asking for money back?",
+      "criteria": {
+        "true": "Explicit refund request",
+        "false": "No money-back language"
+      }
+    }
+  }
+}

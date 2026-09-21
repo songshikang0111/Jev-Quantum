@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jev Quantum VS Jev</title>
+  <base href="/demo/">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="crt">
+    <header>
+      <p class="eyebrow">SYSTEM −1 / ERGODIC MARKOV WALK</p>
+      <h1>Jev Quantum VS Jev</h1>
+      <p class="sub">Offline playback of recorded HTTP decisions. This page never calls an API. Two models play side by side from the same imported report.</p>
+    </header>
+
+    <section id="dropzone" class="dropzone">
+      <input id="file" type="file" accept="application/json,.json">
+      <label for="file">Drop a <code>*.summary.json</code> report or click to import</label>
+      <p id="file-status" class="status">waiting for a benchmark report</p>
+    </section>
+
+    <section class="controls">
+      <button id="play" disabled>Play</button>
+      <button id="reset" disabled>Reset</button>
+      <label>Speed
+        <input id="speed" type="range" min="1" max="64" value="8">
+        <span id="speed-label">8×</span>
+      </label>
+      <label class="check">
+        <input id="realtime" type="checkbox">
+        Use recorded step delays
+      </label>
+    </section>
+
+    <section class="compare" id="compare">
+      <article class="panel maze-panel" id="pane-0">
+        <header class="pane-head">
+          <p class="pane-kicker" id="title-0">model a</p>
+          <h2 id="name-0">—</h2>
+          <p class="pane-meta" id="meta-0">import a report to begin</p>
+        </header>
+        <canvas id="maze-0" width="720" height="720"></canvas>
+        <dl class="pane-metrics" id="metrics-0"></dl>
+      </article>
+      <article class="panel maze-panel" id="pane-1">
+        <header class="pane-head">
+          <p class="pane-kicker" id="title-1">model b</p>
+          <h2 id="name-1">—</h2>
+          <p class="pane-meta" id="meta-1">waiting for a second target</p>
+        </header>
+        <canvas id="maze-1" width="720" height="720"></canvas>
+        <dl class="pane-metrics" id="metrics-1"></dl>
+      </article>
+    </section>
+
+    <section class="panel console-panel">
+      <h2>Console</h2>
+      <pre id="log"></pre>
+    </section>
+  </div>
+  <script src="last-report.js" onerror=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "model": "jev-quantum-latest",
+  "answers": {
+    "refund": {
+      "type": "noul",
+      "noul": 0.99
+    },
+    "department": {
+      "type": "choice",
+      "choice": "billing",
+      "confidence": 1.0,
+      "probabilities": {
+        "sales": 0.0,
+        "billing": 1.0,
+        "technical": 0.0
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "score": 2.0,
+      "confidence": 1.0,
+      "legend": {
+        "0": "Can wait a week",
+        "1": "Should be handled this week",
+        "2": "Needs a reply today"
+      },
+      "probabilities": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 1.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0
+  }
+}
