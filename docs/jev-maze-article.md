@@ -1,5 +1,7 @@
 # 让 Jev、LLM 和传统算法走同一个迷宫，我们重新想了一遍 AI native 软件怎么设计
 
+> 配套材料：[网页实录视频](../reports/article-selected-seven.screencast.mp4) · [1080p 精简回放](../reports/article-selected-seven.replay.mp4) · [离线播放器](../reports/article-selected-seven.player.html) · [七组实验数据](../reports/article-selected-seven.summary.json)。视频为加速回放，非真实运行耗时。
+
 最近我们做了一组实验：让随机策略、传统算法、Jev 和一个持续运行的 LLM session，去走同一张未知迷宫。
 
 最有意思的结果发生在一个路口。

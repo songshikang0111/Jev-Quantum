@@ -107,3 +107,4 @@ reports/memory-v1-long/*
 # Published comparison replay
 !reports/article-selected-seven.replay.mp4
 !reports/article-selected-seven.replay.png
+!reports/article-selected-seven.screencast.mp4

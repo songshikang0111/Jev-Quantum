@@ -5,6 +5,9 @@ statistics and client-observed request timing. `api_key` entries are placeholder
 not credentials. Environment files, runtime logs, PID files and raw agent sessions
 remain ignored.
 
+- [Original screen recording](article-selected-seven.screencast.mp4): user-recorded webpage, 2944×1840, 20.5 seconds.
+- [Condensed replay](article-selected-seven.replay.mp4): 1920×1080, 16 seconds; 8× through step 96, then 64×, with opening/final holds.
+- [Result preview](article-selected-seven.replay.png): seven groups, steps and whole-run P50.
 - `article-selected-seven.summary.json`: seven article groups with display names.
 - `article-selected-seven.player.html`: self-contained article replay (up to 64×).
 - `0923showcase.eleven-strategies.summary.json`: full eleven-version comparison.
