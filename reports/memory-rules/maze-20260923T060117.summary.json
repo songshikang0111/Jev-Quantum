@@ -1,0 +1,1054 @@
+{
+  "schema_version": 1,
+  "run_id": "20260923T060117",
+  "scenario": "maze",
+  "started_at": "2026-09-23T06:01:17Z",
+  "finished_at": "2026-09-23T06:01:17Z",
+  "config": {
+    "api_key": "redacted",
+    "concurrency": 1,
+    "gateway_base_url": "https://ai-gateway.vercel.sh/typesafe",
+    "gateway_model": "typesafe-ai/jev",
+    "local_base_url": "http://127.0.0.1:3001",
+    "local_model": "jev-quantum-latest",
+    "max_runtime_secs": 600,
+    "max_steps": 10000,
+    "maze_context": "features",
+    "remote_max_retries": 6,
+    "remote_qps": 10.0,
+    "remote_retry_base_ms": 1000,
+    "requests": 100,
+    "resumed_from": null,
+    "strategy_contexts": {
+      "flood-fill": "online optimistic BFS with observed walls",
+      "jev-flood-fill": "flood-v1: spatial memory + locally computed optimistic BFS gradient; unmodified Jev choice",
+      "jev-memory": "spatial-v2: 24 observed cells + lifetime edge traversal counts + stagnation",
+      "memory-rules": "spatial-v2 rules: traversals, unexplored, has unexplored exits, visits; final tie UP RIGHT DOWN LEFT; no BFS or goal heuristic"
+    },
+    "targets": "memory-rules",
+    "timeout_ms": 30000,
+    "warmup": 0
+  },
+  "targets": [
+    {
+      "name": "memory-rules",
+      "model": "spatial-v2-rules",
+      "endpoint": "in-process",
+      "stats": {
+        "requests": 38,
+        "ok": 38,
+        "qps": 81025.5273056027,
+        "p50_ns": 3562,
+        "p95_ns": 5937,
+        "p99_ns": 5937,
+        "max_ns": 7124,
+        "mean_ns": 4280,
+        "errors": {}
+      },
+      "latency_samples": [
+        7124,
+        4749,
+        4750,
+        4749,
+        5936,
+        5936,
+        5937,
+        5937,
+        4749,
+        4749,
+        4749,
+        3562,
+        2375,
+        3562,
+        3562,
+        3562,
+        3562,
+        4749,
+        3562,
+        3562,
+        4749,
+        3562,
+        3561,
+        3562,
+        3562,
+        3562,
+        3562,
+        4749,
+        4750,
+        4749,
+        3562,
+        3562,
+        4750,
+        3562,
+        4750,
+        3562,
+        3562,
+        3562
+      ],
+      "trajectory": {
+        "steps": [
+          {
+            "x": 1,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 7124,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4750,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 5936,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 5936,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 1,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 5937,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 5937,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 2375,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3561,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 0,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 1,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4750,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4749,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 4750,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 4750,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 3562,
+            "throttle_ns": 0,
+            "kind": "decision"
+          }
+        ],
+        "success": true,
+        "exit_step": 38,
+        "stop_reason": "exit"
+      }
+    }
+  ],
+  "maze": {
+    "width": 10,
+    "height": 10,
+    "seed": 20260935,
+    "start": [
+      0,
+      0
+    ],
+    "exit": [
+      9,
+      9
+    ],
+    "cells": [
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,6002 @@
+{
+  "schema_version": 1,
+  "run_id": "20260922T183622",
+  "scenario": "maze",
+  "started_at": "2026-09-22T18:36:22Z",
+  "finished_at": "2026-09-22T18:40:58Z",
+  "config": {
+    "api_key": "redacted",
+    "concurrency": 1,
+    "gateway_base_url": "https://ai-gateway.vercel.sh/typesafe",
+    "gateway_model": "typesafe-ai/jev",
+    "local_base_url": "http://127.0.0.1:3001",
+    "local_model": "jev-quantum-latest",
+    "max_runtime_secs": 276,
+    "max_steps": 10000,
+    "maze_context": "features",
+    "remote_max_retries": 8,
+    "remote_qps": 1.0,
+    "remote_retry_base_ms": 2000,
+    "requests": 1,
+    "resumed_from": "20260922T182933",
+    "strategy_contexts": {
+      "flood-fill": "online optimistic BFS with observed walls",
+      "jev-memory": "features + last 32 transitions + lifetime edge counts + nearest 64 observed cells"
+    },
+    "targets": "jev-memory",
+    "timeout_ms": 600000,
+    "warmup": 0
+  },
+  "targets": [
+    {
+      "name": "jev-memory",
+      "model": "typesafe-ai/jev",
+      "endpoint": "https://ai-gateway.vercel.sh/typesafe/v1/systemone",
+      "stats": {
+        "requests": 281,
+        "ok": 281,
+        "qps": 0.4687828088190109,
+        "p50_ns": 528501693,
+        "p95_ns": 658123915,
+        "p99_ns": 814310159,
+        "max_ns": 2126356083,
+        "mean_ns": 527047468,
+        "errors": {}
+      },
+      "latency_samples": [
+        369041747,
+        437325293,
+        370955696,
+        473249816,
+        410252187,
+        341194513,
+        363194232,
+        412597129,
+        480275146,
+        534499721,
+        568369006,
+        509459294,
+        509477104,
+        497418755,
+        375922225,
+        671710335,
+        641917096,
+        570689014,
+        423545341,
+        484720445,
+        545617717,
+        496492651,
+        538204136,
+        403159181,
+        382943993,
+        397963500,
+        553385118,
+        498012411,
+        370667179,
+        363410323,
+        409732144,
+        514903123,
+        557053915,
+        506392465,
+        415219904,
+        409630035,
+        582744989,
+        669364205,
+        525948694,
+        375011556,
+        548983749,
+        564713270,
+        631719267,
+        567111641,
+        382219732,
+        497964919,
+        375970905,
+        543592162,
+        530471169,
+        519145392,
+        623162303,
+        532832734,
+        388223973,
+        382643603,
+        506582436,
+        625115432,
+        389040844,
+        553050296,
+        499768447,
+        409245346,
+        690168300,
+        475591197,
+        680542755,
+        642078570,
+        445523688,
+        633531105,
+        552144376,
+        533794457,
+        544050465,
+        398130910,
+        465766184,
+        521014222,
+        681435614,
+        577415142,
+        570510918,
+        527992060,
+        600484629,
+        403520124,
+        414254618,
+        387018850,
+        528423053,
+        647327121,
+        552872269,
+        526694326,
+        538732491,
+        501114859,
+        553628517,
+        413409252,
+        560290529,
+        563910856,
+        549877796,
+        574691446,
+        564066254,
+        479441653,
+        483695794,
+        513265819,
+        538695684,
+        485122944,
+        564030704,
+        514152741,
+        545567850,
+        510251232,
+        582327055,
+        526494998,
+        535157562,
+        415927612,
+        569453022,
+        520945427,
+        522880678,
+        529392180,
+        489285662,
+        413015064,
+        520685336,
+        555218398,
+        582418618,
+        632808102,
+        371823621,
+        505594591,
+        571029773,
+        550469077,
+        585076871,
+        509168402,
+        511069291,
+        529624755,
+        629753355,
+        553545405,
+        506206126,
+        401804457,
+        409746392,
+        537422954,
+        535536245,
+        559269440,
+        385203589,
+        360844540,
+        403330223,
+        521662495,
+        541513177,
+        540621505,
+        545684207,
+        645938524,
+        360030043,
+        507959718,
+        488934288,
+        510424649,
+        539806031,
+        605131771,
+        658123915,
+        526211090,
+        562473998,
+        443797335,
+        399011966,
+        975483334,
+        500731358,
+        538765736,
+        512621108,
+        533006082,
+        405651350,
+        532495536,
+        529338472,
+        549728195,
+        556616983,
+        499212784,
+        546318232,
+        492390486,
+        521923703,
+        554929812,
+        582796043,
+        499931109,
+        377032362,
+        514637166,
+        373057239,
+        569960004,
+        381047854,
+        529311164,
+        560314275,
+        587016940,
+        588407283,
+        493846131,
+        521246935,
+        404448602,
+        510423392,
+        694535237,
+        635042555,
+        687215454,
+        441488012,
+        555094849,
+        361783704,
+        510097021,
+        545159415,
+        580056912,
+        535233480,
+        583535739,
+        520175979,
+        428485750,
+        518668092,
+        564960440,
+        527975437,
+        496738913,
+        541430136,
+        515336702,
+        521593002,
+        495022898,
+        613540321,
+        423097724,
+        512473881,
+        557693247,
+        592285116,
+        506945753,
+        559073604,
+        539121929,
+        616562031,
+        524086988,
+        500670805,
+        540421548,
+        515662373,
+        361583047,
+        526341902,
+        559343051,
+        567990389,
+        353884511,
+        538961989,
+        543566597,
+        547217025,
+        539359599,
+        534890694,
+        523600885,
+        567732603,
+        566957776,
+        624602091,
+        528501693,
+        591024257,
+        363127741,
+        546415799,
+        591729381,
+        573345519,
+        493565923,
+        611248803,
+        572305014,
+        513217136,
+        614974661,
+        568232462,
+        454495021,
+        547472507,
+        485419770,
+        514628921,
+        516198479,
+        396068616,
+        529063013,
+        532562024,
+        540974134,
+        365782572,
+        522300079,
+        473668936,
+        590363972,
+        509208769,
+        517148329,
+        538992510,
+        904743025,
+        2126356083,
+        683471923,
+        604631909,
+        744379811,
+        604090495,
+        588040401,
+        604481260,
+        814310159,
+        446813107,
+        611835336,
+        430454311,
+        445959430,
+        618802488,
+        446646883,
+        532220078,
+        558724461,
+        551492539,
+        576451041,
+        523305733,
+        521983067,
+        406106089,
+        694095928,
+        401606173
+      ],
+      "trajectory": {
+        "steps": [
+          {
+            "x": 1,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 369041747,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 630897700,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 437325293,
+            "throttle_ns": 630897700,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 562605843,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 370955696,
+            "throttle_ns": 562605843,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 628893516,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 473249816,
+            "throttle_ns": 628893516,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 526639764,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 410252187,
+            "throttle_ns": 526639764,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 589620770,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 341194513,
+            "throttle_ns": 589620770,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 658660634,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 363194232,
+            "throttle_ns": 658660634,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 636657354,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 412597129,
+            "throttle_ns": 636657354,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 587241396,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 480275146,
+            "throttle_ns": 587241396,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 519596624,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 534499721,
+            "throttle_ns": 519596624,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 465343554,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 568369006,
+            "throttle_ns": 465343554,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 431484955,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 509459294,
+            "throttle_ns": 431484955,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 490369733,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 509477104,
+            "throttle_ns": 490369733,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 490291371,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 497418755,
+            "throttle_ns": 490291371,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 502358030,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 375922225,
+            "throttle_ns": 502358030,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 623892554,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 671710335,
+            "throttle_ns": 623892554,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 328056951,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 641917096,
+            "throttle_ns": 328056951,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 357890559,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 570689014,
+            "throttle_ns": 357890559,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 429084209,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 423545341,
+            "throttle_ns": 429084209,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 576257565,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 484720445,
+            "throttle_ns": 576257565,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 514884180,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 545617717,
+            "throttle_ns": 514884180,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 453885986,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 496492651,
+            "throttle_ns": 453885986,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 503316192,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 538204136,
+            "throttle_ns": 503316192,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 461573836,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 403159181,
+            "throttle_ns": 461573836,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 596654411,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 382943993,
+            "throttle_ns": 596654411,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 616851789,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 397963500,
+            "throttle_ns": 616851789,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 601863152,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 553385118,
+            "throttle_ns": 601863152,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446325178,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 498012411,
+            "throttle_ns": 446325178,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 501644455,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 370667179,
+            "throttle_ns": 501644455,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 629185594,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 363410323,
+            "throttle_ns": 629185594,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 636347465,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 409732144,
+            "throttle_ns": 636347465,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 590044641,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 514903123,
+            "throttle_ns": 590044641,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 484949650,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 557053915,
+            "throttle_ns": 484949650,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 442716934,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 506392465,
+            "throttle_ns": 442716934,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 493465057,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 415219904,
+            "throttle_ns": 493465057,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 584092643,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 409630035,
+            "throttle_ns": 584092643,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 590147938,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 0,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 582744989,
+            "throttle_ns": 590147938,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 417024673,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 669364205,
+            "throttle_ns": 417024673,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 330418516,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 525948694,
+            "throttle_ns": 330418516,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 473810282,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 375011556,
+            "throttle_ns": 473810282,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 624672619,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 548983749,
+            "throttle_ns": 624672619,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 450821531,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 564713270,
+            "throttle_ns": 450821531,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 435048080,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 631719267,
+            "throttle_ns": 435048080,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 368103824,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 567111641,
+            "throttle_ns": 368103824,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 432379002,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 382219732,
+            "throttle_ns": 432379002,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 617586736,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 497964919,
+            "throttle_ns": 617586736,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 501754875,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 375970905,
+            "throttle_ns": 501754875,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 623772635,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 543592162,
+            "throttle_ns": 623772635,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 456222617,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 530471169,
+            "throttle_ns": 456222617,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 469243876,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 519145392,
+            "throttle_ns": 469243876,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 480631394,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 623162303,
+            "throttle_ns": 480631394,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 376494564,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 532832734,
+            "throttle_ns": 376494564,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 466906058,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 388223973,
+            "throttle_ns": 466906058,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 611485136,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 382643603,
+            "throttle_ns": 611485136,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 616773427,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 506582436,
+            "throttle_ns": 616773427,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 493226407,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 625115432,
+            "throttle_ns": 493226407,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 374556869,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 389040844,
+            "throttle_ns": 374556869,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 610631457,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 553050296,
+            "throttle_ns": 610631457,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446515147,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 499768447,
+            "throttle_ns": 446515147,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 499770875,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 409245346,
+            "throttle_ns": 499770875,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 590571808,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 690168300,
+            "throttle_ns": 590571808,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 309559806,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 475591197,
+            "throttle_ns": 309559806,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 524127410,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 680542755,
+            "throttle_ns": 524127410,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 319153293,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 642078570,
+            "throttle_ns": 319153293,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 357597293,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 445523688,
+            "throttle_ns": 357597293,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 554186608,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 633531105,
+            "throttle_ns": 554186608,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 366289610,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 552144376,
+            "throttle_ns": 366289610,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 447450750,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 533794457,
+            "throttle_ns": 447450750,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 465931274,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 544050465,
+            "throttle_ns": 465931274,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 455709698,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 398130910,
+            "throttle_ns": 455709698,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 601593633,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 465766184,
+            "throttle_ns": 601593633,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 533853876,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 521014222,
+            "throttle_ns": 533853876,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478597527,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 681435614,
+            "throttle_ns": 478597527,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 318315050,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 577415142,
+            "throttle_ns": 318315050,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 422311777,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 570510918,
+            "throttle_ns": 422311777,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 429122203,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 527992060,
+            "throttle_ns": 429122203,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 471698052,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 600484629,
+            "throttle_ns": 471698052,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 398856412,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 403520124,
+            "throttle_ns": 398856412,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 596279221,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 414254618,
+            "throttle_ns": 596279221,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 585367816,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 387018850,
+            "throttle_ns": 585367816,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 612768620,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 528423053,
+            "throttle_ns": 612768620,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 471265870,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 1,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 647327121,
+            "throttle_ns": 471265870,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 352468661,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 552872269,
+            "throttle_ns": 352468661,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446835652,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 526694326,
+            "throttle_ns": 446835652,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 473072960,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 538732491,
+            "throttle_ns": 473072960,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 460910128,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 501114859,
+            "throttle_ns": 460910128,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 498606122,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 553628517,
+            "throttle_ns": 498606122,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446160142,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 413409252,
+            "throttle_ns": 446160142,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 586210809,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 560290529,
+            "throttle_ns": 586210809,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 439413830,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 563910856,
+            "throttle_ns": 439413830,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 435697332,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 549877796,
+            "throttle_ns": 435697332,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 449921548,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 574691446,
+            "throttle_ns": 449921548,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 424749330,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 564066254,
+            "throttle_ns": 424749330,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 435687973,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 479441653,
+            "throttle_ns": 435687973,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 520214027,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 483695794,
+            "throttle_ns": 520214027,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 516099988,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 513265819,
+            "throttle_ns": 516099988,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 486185643,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 538695684,
+            "throttle_ns": 486185643,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 461095349,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 485122944,
+            "throttle_ns": 461095349,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 514588539,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 564030704,
+            "throttle_ns": 514588539,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 435679592,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 514152741,
+            "throttle_ns": 435679592,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 485533808,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 545567850,
+            "throttle_ns": 485533808,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 454162629,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 510251232,
+            "throttle_ns": 454162629,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 489504182,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 582327055,
+            "throttle_ns": 489504182,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 417391552,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 526494998,
+            "throttle_ns": 417391552,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 473155932,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 535157562,
+            "throttle_ns": 473155932,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 464282027,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 415927612,
+            "throttle_ns": 464282027,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 583672263,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 569453022,
+            "throttle_ns": 583672263,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 430172974,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 520945427,
+            "throttle_ns": 430172974,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478604580,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 522880678,
+            "throttle_ns": 478604580,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 476644397,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 529392180,
+            "throttle_ns": 476644397,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 470404789,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 489285662,
+            "throttle_ns": 470404789,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 510234663,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 413015064,
+            "throttle_ns": 510234663,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 586746287,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 520685336,
+            "throttle_ns": 586746287,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478883669,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 555218398,
+            "throttle_ns": 478883669,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 444575008,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 582418618,
+            "throttle_ns": 444575008,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 417107645,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 632808102,
+            "throttle_ns": 417107645,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 366838079,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 371823621,
+            "throttle_ns": 366838079,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 627972161,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 505594591,
+            "throttle_ns": 627972161,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 493814127,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 571029773,
+            "throttle_ns": 493814127,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 428679336,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 550469077,
+            "throttle_ns": 428679336,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 449229345,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 585076871,
+            "throttle_ns": 449229345,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 414698727,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 509168402,
+            "throttle_ns": 414698727,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 490543081,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 511069291,
+            "throttle_ns": 490543081,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 488629132,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 529624755,
+            "throttle_ns": 488629132,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 470104538,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 629753355,
+            "throttle_ns": 470104538,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 369880952,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 553545405,
+            "throttle_ns": 369880952,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446255126,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 506206126,
+            "throttle_ns": 446255126,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 493491108,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 401804457,
+            "throttle_ns": 493491108,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 597980640,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 409746392,
+            "throttle_ns": 597980640,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 589941345,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 537422954,
+            "throttle_ns": 589941345,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 462251722,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 535536245,
+            "throttle_ns": 462251722,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 464231042,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 559269440,
+            "throttle_ns": 464231042,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 440178460,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 385203589,
+            "throttle_ns": 440178460,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 614585070,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 360844540,
+            "throttle_ns": 614585070,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 638761272,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 403330223,
+            "throttle_ns": 638761272,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 596285087,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 521662495,
+            "throttle_ns": 596285087,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478083420,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 541513177,
+            "throttle_ns": 478083420,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 458192369,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 540621505,
+            "throttle_ns": 458192369,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 459141032,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 545684207,
+            "throttle_ns": 459141032,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 453998780,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 645938524,
+            "throttle_ns": 453998780,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 353661352,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 360030043,
+            "throttle_ns": 353661352,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 639639884,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 507959718,
+            "throttle_ns": 639639884,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 491698336,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 488934288,
+            "throttle_ns": 491698336,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 510785506,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 510424649,
+            "throttle_ns": 510785506,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 489103988,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 539806031,
+            "throttle_ns": 489103988,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 459878144,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 605131771,
+            "throttle_ns": 459878144,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 394579712,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 658123915,
+            "throttle_ns": 394579712,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 341518704,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 526211090,
+            "throttle_ns": 341518704,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 473393535,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 562473998,
+            "throttle_ns": 473393535,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 437210178,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 443797335,
+            "throttle_ns": 437210178,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 555945018,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 399011966,
+            "throttle_ns": 555945018,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 600593846,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 975483334,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 24223399,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 500731358,
+            "throttle_ns": 24223399,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 499034742,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 538765736,
+            "throttle_ns": 499034742,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 461013424,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 512621108,
+            "throttle_ns": 461013424,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 486925339,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 533006082,
+            "throttle_ns": 486925339,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 466743396,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 405651350,
+            "throttle_ns": 466743396,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 594126622,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 532495536,
+            "throttle_ns": 594126622,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 466985608,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 529338472,
+            "throttle_ns": 466985608,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 470419316,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 549728195,
+            "throttle_ns": 470419316,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 450005847,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 556616983,
+            "throttle_ns": 450005847,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 443102811,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 499212784,
+            "throttle_ns": 443102811,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 500523632,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 546318232,
+            "throttle_ns": 500523632,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 453413435,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 492390486,
+            "throttle_ns": 453413435,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 507011109,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 521923703,
+            "throttle_ns": 507011109,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 477835272,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 554929812,
+            "throttle_ns": 477835272,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 444638006,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 582796043,
+            "throttle_ns": 444638006,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 416920190,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 499931109,
+            "throttle_ns": 416920190,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 499557159,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 377032362,
+            "throttle_ns": 499557159,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 622600757,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 514637166,
+            "throttle_ns": 622600757,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 485096877,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 373057239,
+            "throttle_ns": 485096877,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 626594878,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 569960004,
+            "throttle_ns": 626594878,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 429447527,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 381047854,
+            "throttle_ns": 429447527,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 618379861,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 529311164,
+            "throttle_ns": 618379861,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 470181854,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 560314275,
+            "throttle_ns": 470181854,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 439099192,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 587016940,
+            "throttle_ns": 439099192,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 412671984,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 588407283,
+            "throttle_ns": 412671984,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 411018058,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 493846131,
+            "throttle_ns": 411018058,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 505853479,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 521246935,
+            "throttle_ns": 505853479,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478268641,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 404448602,
+            "throttle_ns": 478268641,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 595272379,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 510423392,
+            "throttle_ns": 595272379,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 489340333,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 694535237,
+            "throttle_ns": 489340333,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 304983902,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 635042555,
+            "throttle_ns": 304983902,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 364667741,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 687215454,
+            "throttle_ns": 364667741,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 312152896,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 441488012,
+            "throttle_ns": 312152896,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 558292336,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 555094849,
+            "throttle_ns": 558292336,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 444556082,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 361783704,
+            "throttle_ns": 444556082,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 638018014,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 510097021,
+            "throttle_ns": 638018014,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 489596653,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 545159415,
+            "throttle_ns": 489596653,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 454292047,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 580056912,
+            "throttle_ns": 454292047,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 419743619,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 535233480,
+            "throttle_ns": 419743619,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 464407951,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 583535739,
+            "throttle_ns": 464407951,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 416216113,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 520175979,
+            "throttle_ns": 416216113,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 479374030,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 428485750,
+            "throttle_ns": 479374030,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 570933655,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 518668092,
+            "throttle_ns": 570933655,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 481132440,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 564960440,
+            "throttle_ns": 481132440,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 434581257,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 527975437,
+            "throttle_ns": 434581257,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 471802536,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 496738913,
+            "throttle_ns": 471802536,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 503025999,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 541430136,
+            "throttle_ns": 503025999,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 458370397,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 515336702,
+            "throttle_ns": 458370397,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 484394966,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 521593002,
+            "throttle_ns": 484394966,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 478135103,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 495022898,
+            "throttle_ns": 478135103,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 504609035,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 613540321,
+            "throttle_ns": 504609035,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 386187785,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 423097724,
+            "throttle_ns": 386187785,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 576588826,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 512473881,
+            "throttle_ns": 576588826,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 487273221,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 557693247,
+            "throttle_ns": 487273221,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 441890006,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 592285116,
+            "throttle_ns": 441890006,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 407310010,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 506945753,
+            "throttle_ns": 407310010,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 492720613,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 559073604,
+            "throttle_ns": 492720613,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 440588012,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 539121929,
+            "throttle_ns": 440588012,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 460539686,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 616562031,
+            "throttle_ns": 460539686,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 383182696,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 524086988,
+            "throttle_ns": 383182696,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 475549694,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 500670805,
+            "throttle_ns": 475549694,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 499043053,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 540421548,
+            "throttle_ns": 499043053,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 459122524,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 515662373,
+            "throttle_ns": 459122524,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 483578934,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 361583047,
+            "throttle_ns": 483578934,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 638107065,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 526341902,
+            "throttle_ns": 638107065,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 473298343,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 559343051,
+            "throttle_ns": 473298343,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 440315003,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 567990389,
+            "throttle_ns": 440315003,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 431757901,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 353884511,
+            "throttle_ns": 431757901,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 645901773,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 538961989,
+            "throttle_ns": 645901773,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 460673506,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 543566597,
+            "throttle_ns": 460673506,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 456219687,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 547217025,
+            "throttle_ns": 456219687,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 452568071,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 539359599,
+            "throttle_ns": 452568071,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 460414812,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 534890694,
+            "throttle_ns": 460414812,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 464902714,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 523600885,
+            "throttle_ns": 464902714,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 476045296,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 567732603,
+            "throttle_ns": 476045296,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 432028747,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 566957776,
+            "throttle_ns": 432028747,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 432643286,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 624602091,
+            "throttle_ns": 432643286,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 374854120,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 528501693,
+            "throttle_ns": 374854120,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 471063750,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 591024257,
+            "throttle_ns": 471063750,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 408525751,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 363127741,
+            "throttle_ns": 408525751,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 636429392,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 546415799,
+            "throttle_ns": 636429392,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 453204261,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 591729381,
+            "throttle_ns": 453204261,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 407938171,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 573345519,
+            "throttle_ns": 407938171,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 426354091,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 493565923,
+            "throttle_ns": 426354091,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 506223923,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 611248803,
+            "throttle_ns": 506223923,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 388461492,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 572305014,
+            "throttle_ns": 388461492,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 427496704,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 513217136,
+            "throttle_ns": 427496704,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 486256883,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 614974661,
+            "throttle_ns": 486256883,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 384638276,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 568232462,
+            "throttle_ns": 384638276,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 431506330,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 454495021,
+            "throttle_ns": 431506330,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 545199839,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 547472507,
+            "throttle_ns": 545199839,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 452275782,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 485419770,
+            "throttle_ns": 452275782,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 514186042,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 514628921,
+            "throttle_ns": 514186042,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 485143115,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 516198479,
+            "throttle_ns": 485143115,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 483489258,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 396068616,
+            "throttle_ns": 483489258,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 603734290,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 529063013,
+            "throttle_ns": 603734290,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 470599791,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 532562024,
+            "throttle_ns": 470599791,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 467132837,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 540974134,
+            "throttle_ns": 467132837,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 458603182,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 365782572,
+            "throttle_ns": 458603182,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 633899228,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 522300079,
+            "throttle_ns": 633899228,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 477486205,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 473668936,
+            "throttle_ns": 477486205,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 526002180,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 590363972,
+            "throttle_ns": 526002180,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 409409251,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 509208769,
+            "throttle_ns": 409409251,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 490594137,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 517148329,
+            "throttle_ns": 490594137,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 482508537,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 538992510,
+            "throttle_ns": 482508537,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 460699976,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 904743025,
+            "throttle_ns": 460699976,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 94976770,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 2126356083,
+            "throttle_ns": 94976770,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 683471923,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 316233624,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 604631909,
+            "throttle_ns": 316233624,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 394941846,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 744379811,
+            "throttle_ns": 394941846,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 255348294,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 604090495,
+            "throttle_ns": 255348294,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 395618613,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 588040401,
+            "throttle_ns": 395618613,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 411703140,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 604481260,
+            "throttle_ns": 411703140,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 395186292,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 814310159,
+            "throttle_ns": 395186292,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 185455940,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 446813107,
+            "throttle_ns": 185455940,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 552801016,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 611835336,
+            "throttle_ns": 552801016,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 387851214,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 430454311,
+            "throttle_ns": 387851214,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 569245298,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 445959430,
+            "throttle_ns": 569245298,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 553600078,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 618802488,
+            "throttle_ns": 553600078,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 380996857,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 446646883,
+            "throttle_ns": 380996857,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 552992174,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 532220078,
+            "throttle_ns": 552992174,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 467490218,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 558724461,
+            "throttle_ns": 467490218,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 440935968,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 551492539,
+            "throttle_ns": 440935968,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 447937552,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 576451041,
+            "throttle_ns": 447937552,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 423323370,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 523305733,
+            "throttle_ns": 423323370,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 476422372,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 521983067,
+            "throttle_ns": 476422372,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 477817464,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 406106089,
+            "throttle_ns": 477817464,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 593401176,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 694095928,
+            "throttle_ns": 593401176,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 305430335,
+            "kind": "pace_gap"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 401606173,
+            "throttle_ns": 305430335,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 598131430,
+            "kind": "pace_gap"
+          }
+        ],
+        "success": false,
+        "exit_step": null,
+        "stop_reason": "max_runtime"
+      }
+    }
+  ],
+  "maze": {
+    "width": 10,
+    "height": 10,
+    "seed": 20260935,
+    "start": [
+      0,
+      0
+    ],
+    "exit": [
+      9,
+      9
+    ],
+    "cells": [
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      }
+    ]
+  }
+}

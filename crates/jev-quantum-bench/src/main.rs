@@ -8,6 +8,7 @@ mod runner;
 mod session;
 mod stats;
 mod target;
+mod trajectory_memory;
 
 use anyhow::Result;
 use clap::Parser;

@@ -1,0 +1,2312 @@
+{
+  "schema_version": 1,
+  "run_id": "20260923T075504",
+  "scenario": "maze",
+  "started_at": "2026-09-23T07:55:04Z",
+  "finished_at": "2026-09-23T07:58:32Z",
+  "config": {
+    "api_key": "redacted",
+    "concurrency": 1,
+    "gateway_base_url": "https://ai-gateway.vercel.sh/typesafe",
+    "gateway_model": "typesafe-ai/jev",
+    "local_base_url": "http://127.0.0.1:3001",
+    "local_model": "jev-quantum-latest",
+    "max_runtime_secs": 1800,
+    "max_steps": 10000,
+    "maze_context": "features",
+    "remote_max_retries": 8,
+    "remote_qps": 1.0,
+    "remote_retry_base_ms": 2000,
+    "requests": 100,
+    "resumed_from": null,
+    "strategy_contexts": {
+      "flood-fill": "online optimistic BFS with observed walls",
+      "jev-flood-fill": "flood-v1: spatial memory + locally computed optimistic BFS gradient; unmodified Jev choice",
+      "jev-memory": "spatial-v2: 24 observed cells + lifetime edge traversal counts + stagnation",
+      "jev-memory-no-distance": "trajectory-v1-no-distance: same free prompt and full memory; remove derived proximity features, proximity option text and progress question",
+      "jev-memory-v1-free": "trajectory-v1-free: full-history v1, only move instructions changed; all features and criteria retained",
+      "jev-memory-v1-long": "trajectory-v1-full: original v1 prompt + all transitions + nearest 64 observed cells",
+      "memory-rules": "spatial-v2 rules: traversals, unexplored, has unexplored exits, visits; final tie UP RIGHT DOWN LEFT; no BFS or goal heuristic"
+    },
+    "targets": "jev-memory-no-distance",
+    "timeout_ms": 600000,
+    "warmup": 0
+  },
+  "targets": [
+    {
+      "name": "jev-memory-no-distance",
+      "model": "typesafe-ai/jev",
+      "endpoint": "https://ai-gateway.vercel.sh/typesafe/v1/systemone",
+      "stats": {
+        "requests": 70,
+        "ok": 70,
+        "qps": 0.33667048438434943,
+        "p50_ns": 669436209,
+        "p95_ns": 985800618,
+        "p99_ns": 2126962392,
+        "max_ns": 2143825069,
+        "mean_ns": 708835256,
+        "errors": {}
+      },
+      "latency_samples": [
+        2143825069,
+        607965497,
+        525472959,
+        474153754,
+        449024321,
+        428773898,
+        457024911,
+        2126962392,
+        446983753,
+        478314092,
+        532647808,
+        436705553,
+        583217471,
+        412226557,
+        467255059,
+        422045617,
+        511553207,
+        483520309,
+        461535294,
+        569998231,
+        452403408,
+        461436049,
+        669436209,
+        438262118,
+        582091201,
+        566447683,
+        581255894,
+        566483162,
+        588700541,
+        590047161,
+        830958529,
+        753737301,
+        632340220,
+        773787558,
+        675040804,
+        718834274,
+        768942213,
+        807271678,
+        763456069,
+        553379303,
+        675412712,
+        571853998,
+        676318561,
+        710303586,
+        668323629,
+        565121876,
+        566917299,
+        1212614486,
+        867830745,
+        831682718,
+        809162715,
+        719401739,
+        803390360,
+        985800618,
+        827001781,
+        941897916,
+        969774088,
+        874185302,
+        777358500,
+        800305726,
+        841457150,
+        753006058,
+        693276781,
+        1052276334,
+        785177291,
+        551849487,
+        897561497,
+        867182334,
+        768335427,
+        760170081
+      ],
+      "trajectory": {
+        "steps": [
+          {
+            "planning": {
+              "history_steps": 0,
+              "observed_cells": 1,
+              "request_bytes": 1552
+            },
+            "x": 1,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 2143825069,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "planning": {
+              "history_steps": 1,
+              "observed_cells": 2,
+              "request_bytes": 1810
+            },
+            "x": 1,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 607965497,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 391916959,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 2,
+              "observed_cells": 3,
+              "request_bytes": 1962
+            },
+            "x": 1,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 525472959,
+            "throttle_ns": 391916959,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 474420183,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 3,
+              "observed_cells": 4,
+              "request_bytes": 2117
+            },
+            "x": 1,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 474153754,
+            "throttle_ns": 474420183,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 525700207,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 4,
+              "observed_cells": 5,
+              "request_bytes": 2272
+            },
+            "x": 0,
+            "y": 3,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 449024321,
+            "throttle_ns": 525700207,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 550830826,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 5,
+              "observed_cells": 6,
+              "request_bytes": 2530
+            },
+            "x": 0,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 428773898,
+            "throttle_ns": 550830826,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 571046818,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 6,
+              "observed_cells": 7,
+              "request_bytes": 2584
+            },
+            "x": 1,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 457024911,
+            "throttle_ns": 571046818,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 542731691,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 7,
+              "observed_cells": 8,
+              "request_bytes": 2743
+            },
+            "x": 2,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 2126962392,
+            "throttle_ns": 542731691,
+            "kind": "decision"
+          },
+          {
+            "planning": {
+              "history_steps": 8,
+              "observed_cells": 9,
+              "request_bytes": 2998
+            },
+            "x": 2,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 446983753,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 552896329,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 9,
+              "observed_cells": 10,
+              "request_bytes": 3155
+            },
+            "x": 1,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 478314092,
+            "throttle_ns": 552896329,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 521524434,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 10,
+              "observed_cells": 11,
+              "request_bytes": 3212
+            },
+            "x": 0,
+            "y": 5,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 532647808,
+            "throttle_ns": 521524434,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 467168159,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 11,
+              "observed_cells": 12,
+              "request_bytes": 3367
+            },
+            "x": 0,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 436705553,
+            "throttle_ns": 467168159,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 563117538,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 12,
+              "observed_cells": 13,
+              "request_bytes": 3622
+            },
+            "x": 0,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 583217471,
+            "throttle_ns": 563117538,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 416434647,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 13,
+              "observed_cells": 14,
+              "request_bytes": 3676
+            },
+            "x": 1,
+            "y": 7,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 412226557,
+            "throttle_ns": 416434647,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 587578725,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 14,
+              "observed_cells": 15,
+              "request_bytes": 3834
+            },
+            "x": 1,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 467255059,
+            "throttle_ns": 587578725,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 532537161,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 15,
+              "observed_cells": 16,
+              "request_bytes": 3986
+            },
+            "x": 0,
+            "y": 8,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 422045617,
+            "throttle_ns": 532537161,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 577745416,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 16,
+              "observed_cells": 17,
+              "request_bytes": 4144
+            },
+            "x": 0,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 511553207,
+            "throttle_ns": 577745416,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 488234265,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 17,
+              "observed_cells": 18,
+              "request_bytes": 4297
+            },
+            "x": 1,
+            "y": 9,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 483520309,
+            "throttle_ns": 488234265,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 516142494,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 18,
+              "observed_cells": 19,
+              "request_bytes": 4456
+            },
+            "x": 0,
+            "y": 9,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 461535294,
+            "throttle_ns": 516142494,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 9,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 538197560,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 19,
+              "observed_cells": 19,
+              "request_bytes": 4513
+            },
+            "x": 0,
+            "y": 8,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 569998231,
+            "throttle_ns": 538197560,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 429678821,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 20,
+              "observed_cells": 19,
+              "request_bytes": 4571
+            },
+            "x": 1,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 452403408,
+            "throttle_ns": 429678821,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 547265332,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 21,
+              "observed_cells": 19,
+              "request_bytes": 4632
+            },
+            "x": 1,
+            "y": 7,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 461436049,
+            "throttle_ns": 547265332,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 538357359,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 22,
+              "observed_cells": 19,
+              "request_bytes": 4689
+            },
+            "x": 0,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 669436209,
+            "throttle_ns": 538357359,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 330323954,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 23,
+              "observed_cells": 19,
+              "request_bytes": 4750
+            },
+            "x": 0,
+            "y": 6,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 438262118,
+            "throttle_ns": 330323954,
+            "kind": "decision"
+          },
+          {
+            "x": 0,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 561490922,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 24,
+              "observed_cells": 19,
+              "request_bytes": 4907
+            },
+            "x": 1,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 582091201,
+            "throttle_ns": 561490922,
+            "kind": "decision"
+          },
+          {
+            "x": 1,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 417467119,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 25,
+              "observed_cells": 20,
+              "request_bytes": 4967
+            },
+            "x": 2,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 566447683,
+            "throttle_ns": 417467119,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 433216308,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 26,
+              "observed_cells": 21,
+              "request_bytes": 5123
+            },
+            "x": 3,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 581255894,
+            "throttle_ns": 433216308,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 418392663,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 27,
+              "observed_cells": 22,
+              "request_bytes": 5279
+            },
+            "x": 4,
+            "y": 6,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 566483162,
+            "throttle_ns": 418392663,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 433259191,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 28,
+              "observed_cells": 23,
+              "request_bytes": 5432
+            },
+            "x": 4,
+            "y": 5,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 588700541,
+            "throttle_ns": 433259191,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 411048936,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 29,
+              "observed_cells": 24,
+              "request_bytes": 5582
+            },
+            "x": 4,
+            "y": 4,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 590047161,
+            "throttle_ns": 411048936,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 409642951,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 30,
+              "observed_cells": 25,
+              "request_bytes": 5735
+            },
+            "x": 4,
+            "y": 3,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 830958529,
+            "throttle_ns": 409642951,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 168760079,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 31,
+              "observed_cells": 26,
+              "request_bytes": 5890
+            },
+            "x": 3,
+            "y": 3,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 753737301,
+            "throttle_ns": 168760079,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 245956373,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 32,
+              "observed_cells": 27,
+              "request_bytes": 6046
+            },
+            "x": 3,
+            "y": 2,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 632340220,
+            "throttle_ns": 245956373,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 367379575,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 33,
+              "observed_cells": 28,
+              "request_bytes": 6298
+            },
+            "x": 2,
+            "y": 2,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 773787558,
+            "throttle_ns": 367379575,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 225897804,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 34,
+              "observed_cells": 29,
+              "request_bytes": 6457
+            },
+            "x": 2,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 675040804,
+            "throttle_ns": 225897804,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 324664743,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 35,
+              "observed_cells": 30,
+              "request_bytes": 6510
+            },
+            "x": 2,
+            "y": 2,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 718834274,
+            "throttle_ns": 324664743,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 280891457,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 36,
+              "observed_cells": 30,
+              "request_bytes": 6668
+            },
+            "x": 2,
+            "y": 1,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 768942213,
+            "throttle_ns": 280891457,
+            "kind": "decision"
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 230673098,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 37,
+              "observed_cells": 31,
+              "request_bytes": 6822
+            },
+            "x": 3,
+            "y": 1,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 807271678,
+            "throttle_ns": 230673098,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 192114482,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 38,
+              "observed_cells": 32,
+              "request_bytes": 6981
+            },
+            "x": 3,
+            "y": 0,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 763456069,
+            "throttle_ns": 192114482,
+            "kind": "decision"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 236196050,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 39,
+              "observed_cells": 33,
+              "request_bytes": 7033
+            },
+            "x": 4,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 553379303,
+            "throttle_ns": 236196050,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 446131526,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 40,
+              "observed_cells": 34,
+              "request_bytes": 7294
+            },
+            "x": 4,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 675412712,
+            "throttle_ns": 446131526,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 324250091,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 41,
+              "observed_cells": 35,
+              "request_bytes": 7447
+            },
+            "x": 4,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 571853998,
+            "throttle_ns": 324250091,
+            "kind": "decision"
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 427796933,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 42,
+              "observed_cells": 36,
+              "request_bytes": 7501
+            },
+            "x": 5,
+            "y": 2,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 676318561,
+            "throttle_ns": 427796933,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 323201766,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 43,
+              "observed_cells": 37,
+              "request_bytes": 7762
+            },
+            "x": 5,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 710303586,
+            "throttle_ns": 323201766,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 289348532,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 44,
+              "observed_cells": 38,
+              "request_bytes": 7812
+            },
+            "x": 5,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 668323629,
+            "throttle_ns": 289348532,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 331215694,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 45,
+              "observed_cells": 39,
+              "request_bytes": 7968
+            },
+            "x": 6,
+            "y": 4,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 565121876,
+            "throttle_ns": 331215694,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 434549239,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 46,
+              "observed_cells": 40,
+              "request_bytes": 8124
+            },
+            "x": 6,
+            "y": 3,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 566917299,
+            "throttle_ns": 434549239,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 432557910,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 47,
+              "observed_cells": 41,
+              "request_bytes": 8174
+            },
+            "x": 6,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 1212614486,
+            "throttle_ns": 432557910,
+            "kind": "decision"
+          },
+          {
+            "planning": {
+              "history_steps": 48,
+              "observed_cells": 41,
+              "request_bytes": 8335
+            },
+            "x": 5,
+            "y": 4,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 867830745,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 131872427,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 49,
+              "observed_cells": 41,
+              "request_bytes": 8396
+            },
+            "x": 5,
+            "y": 3,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 831682718,
+            "throttle_ns": 131872427,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 167987209,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 50,
+              "observed_cells": 41,
+              "request_bytes": 8451
+            },
+            "x": 5,
+            "y": 2,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 809162715,
+            "throttle_ns": 167987209,
+            "kind": "decision"
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 190286372,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 51,
+              "observed_cells": 41,
+              "request_bytes": 8613
+            },
+            "x": 6,
+            "y": 2,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 719401739,
+            "throttle_ns": 190286372,
+            "kind": "decision"
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 280212385,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 52,
+              "observed_cells": 42,
+              "request_bytes": 8771
+            },
+            "x": 7,
+            "y": 2,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 803390360,
+            "throttle_ns": 280212385,
+            "kind": "decision"
+          },
+          {
+            "x": 7,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 196243949,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 53,
+              "observed_cells": 43,
+              "request_bytes": 8828
+            },
+            "x": 8,
+            "y": 2,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 985800618,
+            "throttle_ns": 196243949,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 13843188,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 54,
+              "observed_cells": 44,
+              "request_bytes": 8981
+            },
+            "x": 8,
+            "y": 1,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 827001781,
+            "throttle_ns": 13843188,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 172638464,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 55,
+              "observed_cells": 45,
+              "request_bytes": 9234
+            },
+            "x": 8,
+            "y": 0,
+            "action": "UP",
+            "collision": false,
+            "latency_ns": 941897916,
+            "throttle_ns": 172638464,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 57756576,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 56,
+              "observed_cells": 46,
+              "request_bytes": 9390
+            },
+            "x": 9,
+            "y": 0,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 969774088,
+            "throttle_ns": 57756576,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 29855471,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 57,
+              "observed_cells": 47,
+              "request_bytes": 9345
+            },
+            "x": 8,
+            "y": 0,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 874185302,
+            "throttle_ns": 29855471,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 0,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 125427634,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 58,
+              "observed_cells": 47,
+              "request_bytes": 9607
+            },
+            "x": 8,
+            "y": 1,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 777358500,
+            "throttle_ns": 125427634,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 221547986,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 59,
+              "observed_cells": 47,
+              "request_bytes": 9665
+            },
+            "x": 9,
+            "y": 1,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 800305726,
+            "throttle_ns": 221547986,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 1,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 199127927,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 60,
+              "observed_cells": 48,
+              "request_bytes": 9722
+            },
+            "x": 9,
+            "y": 2,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 841457150,
+            "throttle_ns": 199127927,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 2,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 158130853,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 61,
+              "observed_cells": 49,
+              "request_bytes": 9874
+            },
+            "x": 9,
+            "y": 3,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 753006058,
+            "throttle_ns": 158130853,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 3,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 246459653,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 62,
+              "observed_cells": 50,
+              "request_bytes": 10131
+            },
+            "x": 9,
+            "y": 4,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 693276781,
+            "throttle_ns": 246459653,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 4,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 306372962,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 63,
+              "observed_cells": 51,
+              "request_bytes": 10185
+            },
+            "x": 9,
+            "y": 5,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 1052276334,
+            "throttle_ns": 306372962,
+            "kind": "decision"
+          },
+          {
+            "planning": {
+              "history_steps": 64,
+              "observed_cells": 52,
+              "request_bytes": 10340
+            },
+            "x": 9,
+            "y": 6,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 785177291,
+            "throttle_ns": 0,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 6,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 214430896,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 65,
+              "observed_cells": 53,
+              "request_bytes": 10495
+            },
+            "x": 9,
+            "y": 7,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 551849487,
+            "throttle_ns": 214430896,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 447819253,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 66,
+              "observed_cells": 54,
+              "request_bytes": 10650
+            },
+            "x": 8,
+            "y": 7,
+            "action": "LEFT",
+            "collision": false,
+            "latency_ns": 897561497,
+            "throttle_ns": 447819253,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 7,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 102063174,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 67,
+              "observed_cells": 55,
+              "request_bytes": 10808
+            },
+            "x": 8,
+            "y": 8,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 867182334,
+            "throttle_ns": 102063174,
+            "kind": "decision"
+          },
+          {
+            "x": 8,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 132520838,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 68,
+              "observed_cells": 56,
+              "request_bytes": 10961
+            },
+            "x": 9,
+            "y": 8,
+            "action": "RIGHT",
+            "collision": false,
+            "latency_ns": 768335427,
+            "throttle_ns": 132520838,
+            "kind": "decision"
+          },
+          {
+            "x": 9,
+            "y": 8,
+            "action": "PACE",
+            "collision": false,
+            "latency_ns": 0,
+            "throttle_ns": 231367746,
+            "kind": "pace_gap"
+          },
+          {
+            "planning": {
+              "history_steps": 69,
+              "observed_cells": 57,
+              "request_bytes": 11119
+            },
+            "x": 9,
+            "y": 9,
+            "action": "DOWN",
+            "collision": false,
+            "latency_ns": 760170081,
+            "throttle_ns": 231367746,
+            "kind": "decision"
+          }
+        ],
+        "success": true,
+        "exit_step": 70,
+        "stop_reason": "exit"
+      }
+    }
+  ],
+  "maze": {
+    "width": 10,
+    "height": 10,
+    "seed": 20260935,
+    "start": [
+      0,
+      0
+    ],
+    "exit": [
+      9,
+      9
+    ],
+    "cells": [
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": false,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": true,
+        "s": false,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": true
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": true,
+        "e": false,
+        "s": true,
+        "w": false
+      },
+      {
+        "n": false,
+        "e": true,
+        "s": true,
+        "w": false
+      }
+    ]
+  }
+}

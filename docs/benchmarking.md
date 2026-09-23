@@ -156,3 +156,74 @@ The demo's **Offline HTML** link downloads this generated file. Regenerate it
 after changing the report or frontend assets. The online demo is served at
 `http://127.0.0.1:3001/demo/` when the server runs with `--bind 127.0.0.1:3001`;
 loopback URLs must be opened on the machine running the server.
+
+## Pure-code spatial-v2 control
+
+```bash
+cargo run --release -p jev-quantum-bench -- maze-record --targets memory-rules \
+  --width 10 --height 10 --maze-seed 20260935 --max-steps 10000 \
+  --max-runtime-secs 600 --warmup 0 --output reports/memory-rules
+python3 scripts/analyze-maze-paths.py reports/0923showcase.eight-strategies.summary.json
+```
+
+`memory-rules` uses the same observed-wall and traversal statistics as Jev v2,
+with lexicographic priorities: fewest bidirectional edge traversals, unexplored
+neighbor, presence of unexplored exits, fewest visits. Complete ties use
+UP/RIGHT/DOWN/LEFT, which was unspecified in the model prompt. No model, BFS,
+or goal heuristic is used. The path audit separately enumerates all 24 fixed
+final-tie direction orders; these are sensitivity checks, not model reruns.
+The frontend supports eight strategies and up to eight columns.
+
+## Full-history v1 control
+
+```bash
+cargo run --release -p jev-quantum-bench -- maze-record --targets jev-memory-v1-long \
+  --width 10 --height 10 --maze-seed 20260935 --max-steps 10000 \
+  --max-runtime-secs 1800 --timeout-ms 600000 --warmup 0 --remote-qps 1 \
+  --remote-max-retries 8 --remote-retry-base-ms 2000 --output reports/memory-v1-long
+```
+
+This restores the original v1 input structure, move instructions and criteria,
+changing only the last-32 transition window to the complete chronological history
+(`recent_limit: null`). The observed-map limit remains 64; no v2 edge-minimization
+rule or BFS feature is added. The new target is separate from existing `jev-memory`
+(v2). Run from the start on the same maze with a 30-minute total budget rather than
+the historical 10-minute budget. Payload bytes and supplied history length are
+recorded per decision. Input size grows with steps; no silent truncation is applied.
+A single run with a larger time budget does not isolate the effect of history
+length; compare the first 600 seconds separately and report the actual stop reason.
+
+## Full-history v1 prompt-only control
+
+`jev-memory-v1-free` differs from `jev-memory-v1-long` only in
+`questions.move.instructions`: replace the Manhattan tie-breaker sentence with
+an explicit instruction to choose the strategy judged most effective, without
+requiring each move to reduce distance to the exit. All state, chronological
+history, map limits, option descriptions, proximity features and the separate
+`progress_available` question remain unchanged. This tests the effect of that
+instruction, not removal of every goal-proximity cue. A regression test compares
+the serialized requests and verifies that only this one field changes.
+
+```bash
+cargo run --release -p jev-quantum-bench -- maze-record --targets jev-memory-v1-free \
+  --width 10 --height 10 --maze-seed 20260935 --max-steps 10000 \
+  --max-runtime-secs 1800 --timeout-ms 600000 --warmup 0 --remote-qps 1 \
+  --remote-max-retries 8 --remote-retry-base-ms 2000 --output reports/memory-v1-free
+```
+
+## Remove proximity cues while keeping the free-strategy prompt
+
+`jev-memory-no-distance` starts from `jev-memory-v1-free` and removes only the
+proximity-guidance group: `state.goal` (derived vector/distance), neighbor
+`closer_to_exit`, the proximity sentence in each choice description, and the
+`progress_available` question. It keeps the exact same move instructions, exit
+coordinates, all transitions, observed-map limit, visit/departure counts and
+legal choices. It adds no BFS or least-traversed-edge rule. This is a grouped
+feature ablation, not evidence about any one removed field in isolation.
+
+```bash
+cargo run --release -p jev-quantum-bench -- maze-record --targets jev-memory-no-distance \
+  --width 10 --height 10 --maze-seed 20260935 --max-steps 10000 \
+  --max-runtime-secs 1800 --timeout-ms 600000 --warmup 0 --remote-qps 1 \
+  --remote-max-retries 8 --remote-retry-base-ms 2000 --output reports/memory-no-distance
+```

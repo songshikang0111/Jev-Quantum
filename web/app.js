@@ -13,7 +13,7 @@
   const fullscreenBtn = document.getElementById("fullscreen");
   const viewport = document.getElementById("stage-viewport");
   const stage = document.getElementById("stage");
-  const SPEEDS = [0.1, 0.25, 0.5, 1, 2, 4, 8, 16];
+  const SPEEDS = [0.1, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64];
   const BASE_STEP_MS = 250;
   let fitEnabled = false;
   let autoColumns = null;
@@ -33,6 +33,8 @@
     { heat: "255,133,112", wall: "#88483c", cursor: "#fff0e9", start: "#f3c15b", exit: "#ff8570" },
     { heat: "84,230,219", wall: "#327d76", cursor: "#e0ffff", start: "#f3c15b", exit: "#54e6db" },
     { heat: "255,150,213", wall: "#864568", cursor: "#fff0fa", start: "#f3c15b", exit: "#ff96d5" },
+    { heat: "190,218,100", wall: "#687b32", cursor: "#f6ffd9", start: "#f3c15b", exit: "#beda64" },
+    { heat: "175,190,255", wall: "#586590", cursor: "#f0f2ff", start: "#f3c15b", exit: "#afbeff" },
   ];
 
   let panes = [];
@@ -109,7 +111,11 @@
     local: "Random legal move",
     jev: "Original local features",
     "flood-fill": "Online BFS planner",
+    "memory-rules": "Spatial v2 rules in code · no model or BFS",
     "jev-memory-v1": "Recent trajectory + spatial memory",
+    "jev-memory-no-distance": "Full history · proximity cues removed",
+    "jev-memory-v1-free": "Full history · free strategy prompt only",
+    "jev-memory-v1-long": "Original v1 rules · full trajectory · 30 min budget",
     "jev-memory-v2": "Spatial memory · least-traversed edge first",
     "jev-flood-fill": "Jev chooses using a local BFS distance field",
     "luna-session": "One continuing Luna session · local observations only",
@@ -317,7 +323,7 @@
     const height = Math.max(40, window.innerHeight - viewport.getBoundingClientRect().top - 12);
     stage.style.width = width + "px";
     let best = { score: -1, cols: 1, scale: 0.1 };
-    const candidates = columnsInput.value === "auto" ? Array.from({length: Math.min(panes.length, 7)}, (_, i) => i + 1) : [Number(columnsInput.value)];
+    const candidates = columnsInput.value === "auto" ? Array.from({length: Math.min(panes.length, 11)}, (_, i) => i + 1) : [Number(columnsInput.value)];
     candidates.forEach((cols) => {
       compareEl.style.gridTemplateColumns = "repeat(" + cols + ", minmax(0, 1fr))";
       const factor = Math.min(1, height / (stage.scrollHeight + 2));

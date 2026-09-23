@@ -159,8 +159,12 @@ pub enum TargetKind {
     Local,
     Jev,
     JevMemory,
+    JevMemoryLong,
+    JevMemoryFree,
+    JevMemoryNoDistance,
     JevFloodFill,
     FloodFill,
+    MemoryRules,
 }
 
 impl TargetKind {
@@ -169,8 +173,12 @@ impl TargetKind {
             Self::Local => "local",
             Self::Jev => "jev",
             Self::JevMemory => "jev-memory",
+            Self::JevMemoryLong => "jev-memory-v1-long",
+            Self::JevMemoryFree => "jev-memory-v1-free",
+            Self::JevMemoryNoDistance => "jev-memory-no-distance",
             Self::JevFloodFill => "jev-flood-fill",
             Self::FloodFill => "flood-fill",
+            Self::MemoryRules => "memory-rules",
         }
     }
 
@@ -185,10 +193,14 @@ impl TargetKind {
                 "local" => Self::Local,
                 "jev" | "gateway" | "remote" => Self::Jev,
                 "jev-memory" => Self::JevMemory,
+                "jev-memory-v1-long" => Self::JevMemoryLong,
+                "jev-memory-v1-free" => Self::JevMemoryFree,
+                "jev-memory-no-distance" => Self::JevMemoryNoDistance,
                 "jev-flood-fill" => Self::JevFloodFill,
                 "flood-fill" => Self::FloodFill,
+                "memory-rules" => Self::MemoryRules,
                 other => bail!(
-                    "unknown target '{other}' (use local,jev,flood-fill,jev-memory,jev-flood-fill)"
+                    "unknown target '{other}' (use local,jev,flood-fill,jev-memory,jev-flood-fill,memory-rules,jev-memory-v1-long,jev-memory-v1-free,jev-memory-no-distance)"
                 ),
             });
         }

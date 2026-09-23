@@ -19,6 +19,7 @@ use crate::pace::{wait_optional, SharedPace, WaitAbort};
 use crate::record::{action_from_choice, RequestRecord, ERR_OK};
 use crate::report::{build_summary, persist_report, TargetRun};
 use crate::target::{http_client, send_request, Target, TargetResponse};
+use crate::trajectory_memory::TrajectoryMemory;
 
 pub async fn run_latency(args: RunArgs) -> Result<()> {
     execute("latency", args, false, None).await
@@ -111,11 +112,17 @@ async fn execute(
         && wanted.iter().any(|k| {
             matches!(
                 k,
-                TargetKind::FloodFill | TargetKind::JevMemory | TargetKind::JevFloodFill
+                TargetKind::MemoryRules
+                    | TargetKind::FloodFill
+                    | TargetKind::JevMemory
+                    | TargetKind::JevMemoryLong
+                    | TargetKind::JevMemoryFree
+                    | TargetKind::JevMemoryNoDistance
+                    | TargetKind::JevFloodFill
             )
         })
     {
-        bail!("flood-fill, jev-memory and jev-flood-fill are maze-record strategies only");
+        bail!("memory-rules, flood-fill, jev-memory and jev-flood-fill are maze-record strategies only");
     }
     let mut targets = Vec::new();
     for kind in wanted {
@@ -146,7 +153,7 @@ async fn execute(
         "remote_qps": args.remote_qps,
         "timeout_ms": args.timeout_ms,
         "resumed_from": maze.as_ref().and_then(|job| job.resume.as_ref().map(|(report, _)| &report.run_id)),
-        "strategy_contexts": {"flood-fill": "online optimistic BFS with observed walls", "jev-memory": "spatial-v2: 24 observed cells + lifetime edge traversal counts + stagnation", "jev-flood-fill": "flood-v1: spatial memory + locally computed optimistic BFS gradient; unmodified Jev choice"},
+        "strategy_contexts": {"jev-memory-no-distance": "trajectory-v1-no-distance: same free prompt and full memory; remove derived proximity features, proximity option text and progress question","jev-memory-v1-free": "trajectory-v1-free: full-history v1, only move instructions changed; all features and criteria retained","jev-memory-v1-long": "trajectory-v1-full: original v1 prompt + all transitions + nearest 64 observed cells","memory-rules": "spatial-v2 rules: traversals, unexplored, has unexplored exits, visits; final tie UP RIGHT DOWN LEFT; no BFS or goal heuristic","flood-fill": "online optimistic BFS with observed walls", "jev-memory": "spatial-v2: 24 observed cells + lifetime edge traversal counts + stagnation", "jev-flood-fill": "flood-v1: spatial memory + locally computed optimistic BFS gradient; unmodified Jev choice"},
         "remote_max_retries": args.remote_max_retries,
         "remote_retry_base_ms": args.remote_retry_base_ms,
         "max_steps": maze.as_ref().map(|job| job.max_steps),
@@ -326,12 +333,20 @@ async fn run_maze_target(
 ) -> Result<TargetRun> {
     let maze = &job.maze;
     let max_steps = job.max_steps;
-    let context = if matches!(target.name.as_str(), "jev-memory" | "jev-flood-fill") {
+    let context = if matches!(
+        target.name.as_str(),
+        "jev-memory"
+            | "jev-flood-fill"
+            | "jev-memory-v1-long"
+            | "jev-memory-v1-free"
+            | "jev-memory-no-distance"
+    ) {
         MazeContext::Features
     } else {
         job.context
     };
     let mut navigation = Navigation::new(maze.width, maze.height);
+    let mut trajectory_memory = TrajectoryMemory::new(maze.width, maze.height);
     let cancel = &job.cancel;
     let mut visits = vec![0u32; maze.width * maze.height];
     visits[maze.start[1] * maze.width + maze.start[0]] = 1;
@@ -364,12 +379,27 @@ async fn run_maze_target(
             target.name == "jev-flood-fill",
         );
     }
+    if matches!(
+        target.name.as_str(),
+        "jev-memory-v1-long" | "jev-memory-v1-free" | "jev-memory-no-distance"
+    ) {
+        trajectory_memory.enrich(&mut warmup_req, maze.start[0], maze.start[1]);
+        if matches!(
+            target.name.as_str(),
+            "jev-memory-v1-free" | "jev-memory-no-distance"
+        ) {
+            TrajectoryMemory::use_free_strategy_prompt(&mut warmup_req);
+            if target.name == "jev-memory-no-distance" {
+                TrajectoryMemory::remove_distance_guidance(&mut warmup_req);
+            }
+        }
+    }
     let mut stop = if maze.is_exit(maze.start[0], maze.start[1]) {
         StopReason::Exit
     } else {
         StopReason::MaxSteps
     };
-    for _ in 0..if target.name == "flood-fill" {
+    for _ in 0..if target.endpoint == "in-process" {
         0
     } else {
         warmup
@@ -410,6 +440,9 @@ async fn run_maze_target(
         }
         let version = match target.name.as_str() {
             "jev-memory" => Some("spatial-v2:"),
+            "jev-memory-v1-long" => Some("trajectory-v1-full:"),
+            "jev-memory-v1-free" => Some("trajectory-v1-free:"),
+            "jev-memory-no-distance" => Some("trajectory-v1-no-distance:"),
             "jev-flood-fill" => Some("flood-v1:"),
             _ => None,
         };
@@ -431,6 +464,18 @@ async fn run_maze_target(
         for step in &trajectory.steps {
             if step.kind == crate::maze::StepKind::PaceGap {
                 continue;
+            }
+            if matches!(
+                target.name.as_str(),
+                "jev-memory-v1-long" | "jev-memory-v1-free" | "jev-memory-no-distance"
+            ) {
+                trajectory_memory.observe(x, y, maze.cells[y * maze.width + x]);
+                trajectory_memory.record(
+                    [x, y],
+                    [step.x, step.y],
+                    action_from_choice(&step.action),
+                    step.collision,
+                );
             }
             navigation.observe(x, y, maze.cells[y * maze.width + x]);
             navigation.record(
@@ -497,7 +542,7 @@ async fn run_maze_target(
         let decision_started = Instant::now();
         if matches!(
             target.name.as_str(),
-            "flood-fill" | "jev-memory" | "jev-flood-fill"
+            "memory-rules" | "flood-fill" | "jev-memory" | "jev-flood-fill"
         ) {
             navigation.observe(x, y, maze.cells[y * maze.width + x]);
         }
@@ -519,12 +564,30 @@ async fn run_maze_target(
                 target.name == "jev-flood-fill",
             );
         }
+        if matches!(
+            target.name.as_str(),
+            "jev-memory-v1-long" | "jev-memory-v1-free" | "jev-memory-no-distance"
+        ) {
+            trajectory_memory.observe(x, y, maze.cells[y * maze.width + x]);
+            trajectory_memory.enrich(&mut request, x, y);
+            if matches!(
+                target.name.as_str(),
+                "jev-memory-v1-free" | "jev-memory-no-distance"
+            ) {
+                TrajectoryMemory::use_free_strategy_prompt(&mut request);
+                if target.name == "jev-memory-no-distance" {
+                    TrajectoryMemory::remove_distance_guidance(&mut request);
+                }
+            }
+        }
         let planned = if target.name == "flood-fill" {
             navigation.choose(x, y, maze.exit)
+        } else if target.name == "memory-rules" {
+            navigation.choose_memory_rules(x, y)
         } else {
             None
         };
-        let mut resp = if target.name == "flood-fill" {
+        let mut resp = if target.endpoint == "in-process" {
             TargetResponse {
                 status: 200,
                 latency_ns: decision_started.elapsed().as_nanos() as u64,
@@ -622,9 +685,29 @@ async fn run_maze_target(
         }
         if matches!(
             target.name.as_str(),
-            "flood-fill" | "jev-memory" | "jev-flood-fill"
+            "memory-rules" | "flood-fill" | "jev-memory" | "jev-flood-fill"
         ) {
             navigation.record([x, y], [step.x, step.y], action, step.collision);
+        }
+        if matches!(
+            target.name.as_str(),
+            "jev-memory-v1-long" | "jev-memory-v1-free" | "jev-memory-no-distance"
+        ) {
+            step.planning = Some(
+                json!({"request_bytes":serde_json::to_vec(&request)?.len(), "history_steps":request.state["memory"]["total_decisions"], "observed_cells":request.state["memory"]["observed_cells"]}),
+            );
+            trajectory_memory.record([x, y], [step.x, step.y], action, step.collision);
+            if (i + 1) % 20 == 0 {
+                eprintln!(
+                    "{} progress: {} steps, position=({},{}), explored={}, request_bytes={}",
+                    target.name,
+                    i + 1,
+                    step.x,
+                    step.y,
+                    request.state["memory"]["observed_cells"],
+                    serde_json::to_vec(&request)?.len()
+                );
+            }
         }
         x = step.x;
         y = step.y;

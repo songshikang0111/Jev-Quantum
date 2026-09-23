@@ -103,6 +103,29 @@ impl Navigation {
             .map(|(_, d)| d)
     }
 
+    /// Executes the spatial-v2 prompt's priorities without a model or goal distance.
+    /// "With unexplored exits" is boolean, not a preference for more exits.
+    /// The prompt leaves complete ties unspecified; use UP, RIGHT, DOWN, LEFT.
+    pub fn choose_memory_rules(&self, x: usize, y: usize) -> Option<u8> {
+        let i = y * self.width + x;
+        (0..4)
+            .filter_map(|d| {
+                let j = self.neighbor(i, d)?;
+                (self.walls[i][d] == Some(false)).then_some((
+                    (
+                        self.traversals(i, d),
+                        self.observed[j],
+                        self.unexplored_exits(j) == 0,
+                        self.visits[j],
+                        d,
+                    ),
+                    d as u8,
+                ))
+            })
+            .min_by_key(|(key, _)| *key)
+            .map(|(_, d)| d)
+    }
+
     pub fn record(&mut self, from: [usize; 2], to: [usize; 2], action: u8, collision: bool) {
         if action < 4 {
             let i = from[1] * self.width + from[0];
@@ -272,6 +295,40 @@ mod tests {
                 assert!(maze.is_exit(x, y), "{w}x{h} seed={seed}");
             }
         }
+    }
+
+    #[test]
+    fn memory_rules_match_prompt_features_and_finish_showcase() {
+        let maze = Maze::braided(10, 10, 20260935);
+        let mut nav = Navigation::new(10, 10);
+        let (mut x, mut y) = (0, 0);
+        for _ in 0..10_000 {
+            if maze.is_exit(x, y) {
+                break;
+            }
+            nav.observe(x, y, maze.cells[y * 10 + x]);
+            let mut req = step_request("jev", &maze, x, y, &[0; 100], None, MazeContext::Features);
+            nav.enrich(&mut req, x, y, maze.exit, false);
+            let key = |v: &serde_json::Value| {
+                (
+                    v["edge_traversals"].as_u64().unwrap(),
+                    v["explored"].as_bool().unwrap(),
+                    v["unexplored_exits"].as_u64().unwrap_or(0) == 0,
+                    v["visits"].as_u64().unwrap(),
+                )
+            };
+            let d = nav.choose_memory_rules(x, y).unwrap();
+            let moves = req.state["moves"].as_object().unwrap();
+            assert_eq!(
+                key(&moves[action_name(d)]),
+                moves.values().map(key).min().unwrap()
+            );
+            let (nx, ny, collision) = maze.try_move(x, y, d);
+            assert!(!collision);
+            nav.record([x, y], [nx, ny], d, collision);
+            (x, y) = (nx, ny);
+        }
+        assert!(maze.is_exit(x, y));
     }
 
     #[test]
