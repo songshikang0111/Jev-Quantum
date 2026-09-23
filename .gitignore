@@ -10,6 +10,7 @@
 # Generated bench output and demo embeds
 reports/
 web/last-report.js
+web/recording.html
 *.tmp
 tmp_*.py
 

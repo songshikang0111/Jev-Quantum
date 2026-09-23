@@ -14,10 +14,11 @@ use crate::maze::{
     apply_choice, cancel_flag, decode_move, maze_cap_hit, maze_deadline, pace_gap_step,
     step_request, Maze, MazeContext, StopReason,
 };
+use crate::navigation::Navigation;
 use crate::pace::{wait_optional, SharedPace, WaitAbort};
 use crate::record::{action_from_choice, RequestRecord, ERR_OK};
 use crate::report::{build_summary, persist_report, TargetRun};
-use crate::target::{http_client, send_request, Target};
+use crate::target::{http_client, send_request, Target, TargetResponse};
 
 pub async fn run_latency(args: RunArgs) -> Result<()> {
     execute("latency", args, false, None).await
@@ -37,7 +38,28 @@ pub async fn run_load(args: LoadArgs) -> Result<()> {
 }
 
 pub async fn run_maze(args: MazeArgs) -> Result<()> {
+    crate::config::require_positive("width", args.width)?;
+    crate::config::require_positive("height", args.height)?;
+    args.width
+        .checked_mul(args.height)
+        .ok_or_else(|| anyhow::anyhow!("maze dimensions overflow"))?;
     let maze = Maze::braided(args.width, args.height, args.maze_seed);
+    let resume = if let Some(path) = &args.resume_report {
+        let report: crate::report::SummaryReport = serde_json::from_slice(&std::fs::read(path)?)?;
+        if report.maze.as_ref() != Some(&maze) {
+            bail!("resume report maze does not match dimensions/seed");
+        }
+        let records_path = path.with_file_name(
+            path.file_name()
+                .unwrap()
+                .to_string_lossy()
+                .replace(".summary.json", ".requests.ndjson"),
+        );
+        let records = std::fs::read_to_string(records_path)?;
+        Some((report, records))
+    } else {
+        None
+    };
     let cancel = Arc::new(AtomicBool::new(false));
     {
         let cancel = Arc::clone(&cancel);
@@ -54,6 +76,7 @@ pub async fn run_maze(args: MazeArgs) -> Result<()> {
         false,
         Some(MazeJob {
             maze,
+            resume,
             max_steps: args.max_steps,
             max_runtime_secs: args.max_runtime_secs,
             context: args.context,
@@ -65,6 +88,7 @@ pub async fn run_maze(args: MazeArgs) -> Result<()> {
 
 struct MazeJob {
     maze: Maze,
+    resume: Option<(crate::report::SummaryReport, String)>,
     max_steps: usize,
     max_runtime_secs: u64,
     context: MazeContext,
@@ -83,6 +107,16 @@ async fn execute(
     println!("{}", config.describe());
 
     let wanted = TargetKind::parse_list(&args.targets)?;
+    if maze.is_none()
+        && wanted.iter().any(|k| {
+            matches!(
+                k,
+                TargetKind::FloodFill | TargetKind::JevMemory | TargetKind::JevFloodFill
+            )
+        })
+    {
+        bail!("flood-fill, jev-memory and jev-flood-fill are maze-record strategies only");
+    }
     let mut targets = Vec::new();
     for kind in wanted {
         match Target::from_config(kind, &config) {
@@ -110,6 +144,11 @@ async fn execute(
         "warmup": args.warmup,
         "maze_context": context_label,
         "remote_qps": args.remote_qps,
+        "timeout_ms": args.timeout_ms,
+        "resumed_from": maze.as_ref().and_then(|job| job.resume.as_ref().map(|(report, _)| &report.run_id)),
+        "strategy_contexts": {"flood-fill": "online optimistic BFS with observed walls", "jev-memory": "spatial-v2: 24 observed cells + lifetime edge traversal counts + stagnation", "jev-flood-fill": "flood-v1: spatial memory + locally computed optimistic BFS gradient; unmodified Jev choice"},
+        "remote_max_retries": args.remote_max_retries,
+        "remote_retry_base_ms": args.remote_retry_base_ms,
         "max_steps": maze.as_ref().map(|job| job.max_steps),
         "max_runtime_secs": maze.as_ref().map(|job| job.max_runtime_secs),
         "local_base_url": config.local_base_url,
@@ -148,6 +187,8 @@ async fn execute(
                 job,
                 args.warmup,
                 args.remote_qps,
+                args.remote_max_retries,
+                args.remote_retry_base_ms,
                 deadline.expect("maze deadline"),
             )
             .await?;
@@ -279,11 +320,18 @@ async fn run_maze_target(
     job: &MazeJob,
     warmup: usize,
     remote_qps: f64,
+    remote_max_retries: u32,
+    remote_retry_base_ms: u64,
     deadline: Instant,
 ) -> Result<TargetRun> {
     let maze = &job.maze;
     let max_steps = job.max_steps;
-    let context = job.context;
+    let context = if matches!(target.name.as_str(), "jev-memory" | "jev-flood-fill") {
+        MazeContext::Features
+    } else {
+        job.context
+    };
+    let mut navigation = Navigation::new(maze.width, maze.height);
     let cancel = &job.cancel;
     let mut visits = vec![0u32; maze.width * maze.height];
     visits[maze.start[1] * maze.width + maze.start[0]] = 1;
@@ -292,7 +340,7 @@ async fn run_maze_target(
     } else {
         None
     };
-    let warmup_req = step_request(
+    let mut warmup_req = step_request(
         &target.model,
         maze,
         maze.start[0],
@@ -301,12 +349,31 @@ async fn run_maze_target(
         None,
         context,
     );
+    if matches!(target.name.as_str(), "jev-memory" | "jev-flood-fill") {
+        let mut warmup_navigation = Navigation::new(maze.width, maze.height);
+        warmup_navigation.observe(
+            maze.start[0],
+            maze.start[1],
+            maze.cells[maze.start[1] * maze.width + maze.start[0]],
+        );
+        warmup_navigation.enrich(
+            &mut warmup_req,
+            maze.start[0],
+            maze.start[1],
+            maze.exit,
+            target.name == "jev-flood-fill",
+        );
+    }
     let mut stop = if maze.is_exit(maze.start[0], maze.start[1]) {
         StopReason::Exit
     } else {
         StopReason::MaxSteps
     };
-    for _ in 0..warmup {
+    for _ in 0..if target.name == "flood-fill" {
+        0
+    } else {
+        warmup
+    } {
         if let Some(reason) = maze_cap_hit(cancel_flag(cancel), Instant::now(), deadline) {
             stop = reason;
             break;
@@ -317,7 +384,12 @@ async fn run_maze_target(
                 break;
             }
         }
-        let _ = send_request(client, target, warmup_req.clone()).await;
+        if let Err(abort) =
+            send_maze_request(client, target, warmup_req.clone(), cancel, deadline).await
+        {
+            stop = stop_from_wait(abort);
+            break;
+        }
     }
 
     let mut records = Vec::with_capacity(max_steps);
@@ -325,9 +397,71 @@ async fn run_maze_target(
     let mut x = maze.start[0];
     let mut y = maze.start[1];
     let mut last_move: Option<String> = None;
-    let started = Instant::now();
+    let mut started = Instant::now();
+    let mut completed = 0;
+    if let Some((report, ndjson)) = &job.resume {
+        let prior = report
+            .targets
+            .iter()
+            .find(|t| t.name == target.name)
+            .ok_or_else(|| anyhow::anyhow!("resume report has no {}", target.name))?;
+        if prior.model != target.model {
+            bail!("resume model mismatch");
+        }
+        let version = match target.name.as_str() {
+            "jev-memory" => Some("spatial-v2:"),
+            "jev-flood-fill" => Some("flood-v1:"),
+            _ => None,
+        };
+        if let Some(version) = version {
+            let saved = report.config["strategy_contexts"][&target.name]
+                .as_str()
+                .unwrap_or("");
+            if !saved.starts_with(version) {
+                bail!(
+                    "resume strategy version mismatch for {}; start a fresh comparison run",
+                    target.name
+                );
+            }
+        }
+        let trajectory = prior
+            .trajectory
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("no saved trajectory"))?;
+        for step in &trajectory.steps {
+            if step.kind == crate::maze::StepKind::PaceGap {
+                continue;
+            }
+            navigation.observe(x, y, maze.cells[y * maze.width + x]);
+            navigation.record(
+                [x, y],
+                [step.x, step.y],
+                action_from_choice(&step.action),
+                step.collision,
+            );
+            x = step.x;
+            y = step.y;
+            visits[y * maze.width + x] = visits[y * maze.width + x].saturating_add(1);
+            last_move = Some(step.action.clone());
+            completed += 1;
+        }
+        steps = trajectory.steps.clone();
+        for line in ndjson.lines() {
+            let value: serde_json::Value = serde_json::from_str(line)?;
+            if value["target"].as_str() == Some(&target.name) {
+                records.push(serde_json::from_value(value)?);
+            }
+        }
+        if prior.stats.qps > 0.0 {
+            started -= Duration::from_secs_f64(prior.stats.requests as f64 / prior.stats.qps);
+        }
+        eprintln!(
+            "resuming {} after {} decisions at ({},{})",
+            target.name, completed, x, y
+        );
+    }
     let mut success = maze.is_exit(x, y);
-    let mut exit_step = None;
+    let mut exit_step = success.then_some(completed);
 
     if matches!(stop, StopReason::MaxRuntime | StopReason::Interrupted) && !success {
         return Ok(maze_run(
@@ -335,7 +469,7 @@ async fn run_maze_target(
         ));
     }
 
-    for i in 0..max_steps {
+    for i in completed..max_steps {
         if success {
             stop = StopReason::Exit;
             break;
@@ -345,7 +479,7 @@ async fn run_maze_target(
             break;
         }
         // Local is never paced: skip the async wait entirely so the hot path is one HTTP call.
-        let throttle_ns = if let Some(p) = pace.as_ref() {
+        let mut throttle_ns = if let Some(p) = pace.as_ref() {
             match p.wait_until(cancel, deadline).await {
                 Ok(wait) => wait.as_nanos() as u64,
                 Err(abort) => {
@@ -360,22 +494,138 @@ async fn run_maze_target(
             steps.push(pace_gap_step(x, y, throttle_ns));
         }
         let offset = started.elapsed().as_nanos() as u64;
-        let resp = send_request(
-            client,
-            target,
-            step_request(
-                &target.model,
-                maze,
+        let decision_started = Instant::now();
+        if matches!(
+            target.name.as_str(),
+            "flood-fill" | "jev-memory" | "jev-flood-fill"
+        ) {
+            navigation.observe(x, y, maze.cells[y * maze.width + x]);
+        }
+        let mut request = step_request(
+            &target.model,
+            maze,
+            x,
+            y,
+            &visits,
+            last_move.as_deref(),
+            context,
+        );
+        if matches!(target.name.as_str(), "jev-memory" | "jev-flood-fill") {
+            navigation.enrich(
+                &mut request,
                 x,
                 y,
-                &visits,
-                last_move.as_deref(),
-                context,
-            ),
-        )
-        .await;
-        let action = resp.body.as_ref().map(decode_move).unwrap_or(255);
-        let step = apply_choice(maze, x, y, action, resp.latency_ns, throttle_ns);
+                maze.exit,
+                target.name == "jev-flood-fill",
+            );
+        }
+        let planned = if target.name == "flood-fill" {
+            navigation.choose(x, y, maze.exit)
+        } else {
+            None
+        };
+        let mut resp = if target.name == "flood-fill" {
+            TargetResponse {
+                status: 200,
+                latency_ns: decision_started.elapsed().as_nanos() as u64,
+                bytes: 0,
+                body: None,
+                error: ERR_OK,
+            }
+        } else {
+            match send_maze_request(client, target, request.clone(), cancel, deadline).await {
+                Ok(resp) => resp,
+                Err(abort) => {
+                    stop = stop_from_wait(abort);
+                    break;
+                }
+            }
+        };
+        let mut retries = 0;
+        while target.paced
+            && is_retryable_remote_status(resp.status)
+            && retries < remote_max_retries
+        {
+            retries += 1;
+            let delay = remote_retry_delay(remote_retry_base_ms, retries);
+            eprintln!(
+                "{} step {} returned {}; retry {}/{} in {}ms",
+                target.name,
+                i + 1,
+                resp.status,
+                retries,
+                remote_max_retries,
+                delay.as_millis()
+            );
+            if let Err(abort) = wait_for_retry(cancel, deadline, delay).await {
+                stop = stop_from_wait(abort);
+                break;
+            }
+            if let Some(p) = pace.as_ref() {
+                match p.wait_until(cancel, deadline).await {
+                    Ok(wait) => throttle_ns = throttle_ns.saturating_add(wait.as_nanos() as u64),
+                    Err(abort) => {
+                        stop = stop_from_wait(abort);
+                        break;
+                    }
+                }
+            }
+            resp = match send_maze_request(client, target, request.clone(), cancel, deadline).await
+            {
+                Ok(resp) => resp,
+                Err(abort) => {
+                    stop = stop_from_wait(abort);
+                    break;
+                }
+            };
+        }
+        if !matches!(stop, StopReason::MaxSteps) {
+            break;
+        }
+        if resp.error != ERR_OK {
+            records.push(RequestRecord {
+                offset_ns: offset,
+                latency_ns: resp.latency_ns,
+                throttle_ns,
+                status: resp.status,
+                action: 255,
+                error: resp.error,
+                bytes: resp.bytes,
+            });
+            stop = StopReason::RequestFailed;
+            break;
+        }
+        let action = planned
+            .or_else(|| resp.body.as_ref().map(decode_move))
+            .unwrap_or(255);
+        let mut step = apply_choice(maze, x, y, action, resp.latency_ns, throttle_ns);
+        if matches!(target.name.as_str(), "jev-memory" | "jev-flood-fill") {
+            step.planning = Some(json!({
+                "request_bytes": serde_json::to_vec(&request)?.len(),
+                "observed_cells": navigation.observed_count(),
+                "steps_without_discovery": navigation.stagnant_steps(),
+                "distance_here": request.state["flood_fill"]["distance_here"],
+                "selected_distance": request.state["moves"][crate::record::action_name(action)]["distance_to_exit"],
+                "downhill": request.state["moves"][crate::record::action_name(action)]["downhill"],
+            }));
+            if (i + 1) % 20 == 0 {
+                eprintln!(
+                    "{} progress: {} steps, position=({},{}), explored={}, stagnant={}",
+                    target.name,
+                    i + 1,
+                    step.x,
+                    step.y,
+                    navigation.observed_count(),
+                    navigation.stagnant_steps()
+                );
+            }
+        }
+        if matches!(
+            target.name.as_str(),
+            "flood-fill" | "jev-memory" | "jev-flood-fill"
+        ) {
+            navigation.record([x, y], [step.x, step.y], action, step.collision);
+        }
         x = step.x;
         y = step.y;
         visits[y * maze.width + x] = visits[y * maze.width + x].saturating_add(1);
@@ -409,10 +659,104 @@ async fn run_maze_target(
     ))
 }
 
+async fn send_maze_request(
+    client: &reqwest::Client,
+    target: &Target,
+    request: SystemOneRequest,
+    cancel: &AtomicBool,
+    deadline: Instant,
+) -> Result<TargetResponse, WaitAbort> {
+    tokio::select! {
+        resp = send_request(client, target, request) => Ok(resp),
+        _ = tokio::time::sleep_until(tokio::time::Instant::from_std(deadline)) => Err(WaitAbort::Deadline),
+        _ = async { while !cancel_flag(cancel) { tokio::time::sleep(Duration::from_millis(50)).await; } } => Err(WaitAbort::Cancelled),
+    }
+}
+
+fn is_retryable_remote_status(status: u16) -> bool {
+    status == 429 || (500..600).contains(&status)
+}
+
+fn remote_retry_delay(base_ms: u64, retry: u32) -> Duration {
+    let multiplier = 1u64 << retry.saturating_sub(1).min(6);
+    Duration::from_millis(base_ms.saturating_mul(multiplier).min(60_000))
+}
+
+async fn wait_for_retry(
+    cancel: &AtomicBool,
+    deadline: Instant,
+    delay: Duration,
+) -> Result<(), WaitAbort> {
+    let until = Instant::now() + delay;
+    loop {
+        if cancel_flag(cancel) {
+            return Err(WaitAbort::Cancelled);
+        }
+        let now = Instant::now();
+        if now >= deadline {
+            return Err(WaitAbort::Deadline);
+        }
+        let remaining = until.saturating_duration_since(now);
+        if remaining.is_zero() {
+            return Ok(());
+        }
+        tokio::time::sleep(
+            remaining
+                .min(Duration::from_millis(50))
+                .min(deadline.saturating_duration_since(now)),
+        )
+        .await;
+    }
+}
+
 fn stop_from_wait(abort: WaitAbort) -> StopReason {
     match abort {
         WaitAbort::Cancelled => StopReason::Interrupted,
         WaitAbort::Deadline => StopReason::MaxRuntime,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::remote_retry_delay;
+    use std::time::Duration;
+
+    #[tokio::test]
+    async fn deadline_interrupts_in_flight_http() {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            let (_socket, _) = listener.accept().await.unwrap();
+            tokio::time::sleep(Duration::from_secs(10)).await;
+        });
+        let target = super::Target {
+            name: "jev-memory".into(),
+            endpoint: format!("http://{addr}"),
+            model: "test".into(),
+            api_key: None,
+            paced: true,
+        };
+        let client = super::http_client(Duration::from_secs(10)).unwrap();
+        let cancel = std::sync::atomic::AtomicBool::new(false);
+        let started = std::time::Instant::now();
+        let result = super::send_maze_request(
+            &client,
+            &target,
+            super::sample_payload("test"),
+            &cancel,
+            started + Duration::from_millis(30),
+        )
+        .await;
+        assert!(matches!(result, Err(crate::pace::WaitAbort::Deadline)));
+        assert!(started.elapsed() < Duration::from_secs(1));
+        server.abort();
+    }
+
+    #[test]
+    fn remote_retries_back_off_and_cap() {
+        assert_eq!(remote_retry_delay(1_000, 1), Duration::from_secs(1));
+        assert_eq!(remote_retry_delay(1_000, 4), Duration::from_secs(8));
+        assert_eq!(remote_retry_delay(20_000, 6), Duration::from_secs(60));
     }
 }
 

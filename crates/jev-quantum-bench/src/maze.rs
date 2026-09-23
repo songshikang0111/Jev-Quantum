@@ -37,6 +37,8 @@ pub enum StepKind {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct MazeStep {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub planning: Option<serde_json::Value>,
     pub x: usize,
     pub y: usize,
     pub action: String,
@@ -57,6 +59,7 @@ pub enum StopReason {
     MaxSteps,
     MaxRuntime,
     Interrupted,
+    RequestFailed,
 }
 
 impl StopReason {
@@ -67,11 +70,15 @@ impl StopReason {
             Self::MaxSteps => "max_steps",
             Self::MaxRuntime => "max_runtime",
             Self::Interrupted => "interrupted",
+            Self::RequestFailed => "request_failed",
         }
     }
 
     pub fn aborts_remaining_targets(self) -> bool {
-        matches!(self, Self::MaxRuntime | Self::Interrupted)
+        matches!(
+            self,
+            Self::MaxRuntime | Self::Interrupted | Self::RequestFailed
+        )
     }
 }
 
@@ -111,8 +118,8 @@ pub fn maze_deadline(max_runtime_secs: u64) -> Instant {
 
 impl Maze {
     pub fn braided(width: usize, height: usize, seed: u64) -> Self {
-        let width = width.max(2);
-        let height = height.max(2);
+        let width = width.max(1);
+        let height = height.max(1);
         let mut rng = Xoshiro256PlusPlus::from_seed(seed);
         let mut cells = vec![
             CellWalls {
@@ -219,13 +226,25 @@ fn carve(
     visited: &mut [bool],
     rng: &mut Xoshiro256PlusPlus,
 ) {
-    visited[y * width + x] = true;
-    let mut dirs = [0u8, 1, 2, 3];
-    for i in (1..dirs.len()).rev() {
-        let j = rng.bounded_usize(i + 1);
-        dirs.swap(i, j);
+    fn directions(rng: &mut Xoshiro256PlusPlus) -> [u8; 4] {
+        let mut dirs = [0, 1, 2, 3];
+        for i in (1..dirs.len()).rev() {
+            let j = rng.bounded_usize(i + 1);
+            dirs.swap(i, j);
+        }
+        dirs
     }
-    for dir in dirs {
+    // Explicit DFS stack preserves the old seed/RNG order without risking call-stack overflow.
+    visited[y * width + x] = true;
+    let mut stack = vec![(x, y, directions(rng), 0usize)];
+    while let Some((x, y, dirs, next)) = stack.last_mut() {
+        if *next == 4 {
+            stack.pop();
+            continue;
+        }
+        let dir = dirs[*next];
+        *next += 1;
+        let (x, y) = (*x, *y);
         let (nx, ny) = match dir {
             0 if y > 0 => (x, y - 1),
             1 if x + 1 < width => (x + 1, y),
@@ -237,7 +256,8 @@ fn carve(
             continue;
         }
         knock(cells, width, height, x, y, dir);
-        carve(nx, ny, width, height, cells, visited, rng);
+        visited[ny * width + nx] = true;
+        stack.push((nx, ny, directions(rng), 0));
     }
 }
 
@@ -460,6 +480,7 @@ pub fn apply_choice(
 ) -> MazeStep {
     let (nx, ny, collision) = maze.try_move(x, y, action);
     MazeStep {
+        planning: None,
         x: nx,
         y: ny,
         action: action_name(action).to_string(),
@@ -472,6 +493,7 @@ pub fn apply_choice(
 
 pub fn pace_gap_step(x: usize, y: usize, throttle_ns: u64) -> MazeStep {
     MazeStep {
+        planning: None,
         x,
         y,
         action: "PACE".to_string(),

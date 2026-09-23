@@ -119,6 +119,12 @@ async fn metrics_and_demo_are_served() {
         .oneshot(Request::get("/demo").body(Body::empty()).unwrap())
         .await
         .unwrap();
+    assert_eq!(response.status(), StatusCode::PERMANENT_REDIRECT);
+    assert_eq!(response.headers()["location"], "/demo/");
+    let response = router(test_state())
+        .oneshot(Request::get("/demo/").body(Body::empty()).unwrap())
+        .await
+        .unwrap();
     assert_eq!(response.status(), StatusCode::OK);
 }
 

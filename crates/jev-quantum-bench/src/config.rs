@@ -18,6 +18,7 @@ pub enum Command {
     Latency(RunArgs),
     Load(LoadArgs),
     MazeRecord(MazeArgs),
+    MazeSession(crate::session::SessionArgs),
 }
 
 #[derive(Debug, Clone, Parser)]
@@ -45,6 +46,12 @@ pub struct RunArgs {
     /// Cap remote TypeSafe Jev calls. `0` disables pacing. Local is never paced.
     #[arg(long, default_value_t = 10.0)]
     pub remote_qps: f64,
+    /// Retries for a rate-limited or transiently unavailable remote maze step.
+    #[arg(long, default_value_t = 6)]
+    pub remote_max_retries: u32,
+    /// Initial remote maze retry delay; each retry doubles it, capped at 60 seconds.
+    #[arg(long, default_value_t = 1_000)]
+    pub remote_retry_base_ms: u64,
 }
 
 #[derive(Debug, Clone, Parser)]
@@ -58,6 +65,9 @@ pub struct LoadArgs {
 
 #[derive(Debug, Clone, Parser)]
 pub struct MazeArgs {
+    /// Continue a saved maze trajectory; dimensions and seed must match.
+    #[arg(long)]
+    pub resume_report: Option<PathBuf>,
     #[command(flatten)]
     pub run: RunArgs,
     #[arg(long, default_value_t = 15)]
@@ -148,6 +158,9 @@ fn env_or(key: &str, default: &str) -> String {
 pub enum TargetKind {
     Local,
     Jev,
+    JevMemory,
+    JevFloodFill,
+    FloodFill,
 }
 
 impl TargetKind {
@@ -155,6 +168,9 @@ impl TargetKind {
         match self {
             Self::Local => "local",
             Self::Jev => "jev",
+            Self::JevMemory => "jev-memory",
+            Self::JevFloodFill => "jev-flood-fill",
+            Self::FloodFill => "flood-fill",
         }
     }
 
@@ -168,7 +184,12 @@ impl TargetKind {
             out.push(match item.as_str() {
                 "local" => Self::Local,
                 "jev" | "gateway" | "remote" => Self::Jev,
-                other => bail!("unknown target '{other}' (use local,jev)"),
+                "jev-memory" => Self::JevMemory,
+                "jev-flood-fill" => Self::JevFloodFill,
+                "flood-fill" => Self::FloodFill,
+                other => bail!(
+                    "unknown target '{other}' (use local,jev,flood-fill,jev-memory,jev-flood-fill)"
+                ),
             });
         }
         if out.is_empty() {

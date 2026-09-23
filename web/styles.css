@@ -104,8 +104,7 @@ button:disabled { opacity: 0.35; cursor: not-allowed; }
   color: var(--accent);
   text-transform: uppercase;
 }
-#pane-1 .pane-kicker { color: var(--amber); }
-#pane-1 { border-color: #4a3b18; }
+
 .pane-meta { margin: 0; color: var(--dim); font-size: 0.82rem; }
 
 canvas {
@@ -124,7 +123,7 @@ canvas {
 
 .pane-metrics dt { color: var(--dim); }
 .pane-metrics dd { margin: 0; color: var(--accent); }
-#pane-1 .pane-metrics dd { color: var(--amber); }
+
 
 .console-panel { margin-top: 18px; }
 .console-panel h2 { margin: 0 0 8px; font-size: 1rem; }
@@ -144,3 +143,35 @@ canvas {
   .compare { grid-template-columns: 1fr; }
   .pane-metrics { grid-template-columns: 1fr auto; }
 }
+
+.maze-panel .pane-kicker, .maze-panel .pane-metrics dd { color: var(--pane-accent, var(--accent)); }
+.maze-panel { border-color: var(--pane-accent, #1d3d2e); }
+
+.overview-panel { margin-bottom: 18px; overflow-x: auto; }
+.overview-panel table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.overview-panel th, .overview-panel td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--grid); }
+.overview-panel th { color: var(--dim); white-space: nowrap; }
+.strategy-description { margin-top: 6px; }
+
+/* Controls stay readable while the comparison stage scales independently. */
+#stage-viewport { position: relative; overflow: auto; width: 100%; }
+#stage { position: absolute; top: 0; left: 0; transform-origin: top left; }
+.controls { gap: 10px 18px; }
+.controls label { display: inline-flex; align-items: center; gap: 6px; }
+.controls input[type="range"] { width: 130px; }
+.controls select { color: var(--ink); background: var(--panel); padding: 6px; font: inherit; }
+.controls a { color: var(--accent); }
+#speed-label { font-size: 0.8rem; min-width: 175px; }
+.playback-progress { margin: 8px 0 0; color: var(--pane-accent); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+body.recording .crt { max-width: none; padding: 12px; }
+body.recording .crt > header, body.recording .dropzone,
+body.recording .overview-panel, body.recording .console-panel,
+body.recording .pane-meta, body.recording .pane-metrics,
+body.recording .pane-head h2 { display: none; }
+body.recording .controls { margin-bottom: 10px; font-size: 0.8rem; }
+body.recording button { padding: 7px 10px; }
+body.recording .compare { gap: 12px; align-items: start; }
+body.recording .maze-panel { padding: 10px; }
+body.recording .pane-head { margin-bottom: 8px; }
+body.recording .pane-kicker { font-size: 14px; letter-spacing: 0.05em; overflow-wrap: anywhere; }
+body.recording .playback-progress { font-size: 14px; min-height: 2.4em; }

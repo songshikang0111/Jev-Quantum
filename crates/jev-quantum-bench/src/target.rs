@@ -29,16 +29,25 @@ impl Target {
                 api_key: None,
                 paced: false,
             }),
-            TargetKind::Jev => config.gateway_api_key.as_ref().map(|key| Self {
-                name: kind.as_str().to_string(),
-                endpoint: format!(
-                    "{}/v1/systemone",
-                    config.gateway_base_url.trim_end_matches('/')
-                ),
-                model: config.gateway_model.clone(),
-                api_key: Some(key.clone()),
-                paced: true,
+            TargetKind::FloodFill => Some(Self {
+                name: kind.as_str().into(),
+                endpoint: "in-process".into(),
+                model: "online-flood-fill".into(),
+                api_key: None,
+                paced: false,
             }),
+            TargetKind::Jev | TargetKind::JevMemory | TargetKind::JevFloodFill => {
+                config.gateway_api_key.as_ref().map(|key| Self {
+                    name: kind.as_str().to_string(),
+                    endpoint: format!(
+                        "{}/v1/systemone",
+                        config.gateway_base_url.trim_end_matches('/')
+                    ),
+                    model: config.gateway_model.clone(),
+                    api_key: Some(key.clone()),
+                    paced: true,
+                })
+            }
         }
     }
 }

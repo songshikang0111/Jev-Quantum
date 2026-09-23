@@ -52,8 +52,16 @@ Used by the offline maze page.
 }
 ```
 
-`stop_reason` is `exit`, `max_steps`, `max_runtime`, `interrupted`, or `unspecified` (missing in older reports). Maze reports are rewritten after each target and again on Ctrl+C / cap so a partial remote walk still keeps the local trajectory.
+`stop_reason` is `exit`, `max_steps`, `max_runtime`, `interrupted`, `request_failed`, or `unspecified` (missing in older reports). Maze reports are rewritten after each target and again on Ctrl+C / cap so a partial remote walk still keeps the local trajectory.
 
 ## `*.requests.ndjson`
 
 One compact record per request. Written after measurement using a temporary file + replace, so Windows can overwrite a checkpoint.
+
+Maze decision steps may include a `planning` object (absent in old reports):
+
+```json
+{"request_bytes": 3100, "observed_cells": 24, "steps_without_discovery": 0, "distance_here": 12, "selected_distance": 11, "downhill": true}
+```
+
+The distance fields are null for the spatial-memory-only policy. The fifth strategy's `downhill` records whether Jev chose a lower optimistic BFS distance; no local action replacement occurs. Request bytes include the full SystemOne request, not just state, and exclude HTTP headers. These annotations describe the state before the decision. Strategy version descriptions are in `config.strategy_contexts` (or `config.sources` in a merged report).

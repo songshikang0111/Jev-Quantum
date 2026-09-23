@@ -4,32 +4,59 @@
   const statusEl = document.getElementById("file-status");
   const playBtn = document.getElementById("play");
   const resetBtn = document.getElementById("reset");
+  const endBtn = document.getElementById("end");
+  const scaleInput = document.getElementById("view-scale");
+  const scaleLabel = document.getElementById("scale-label");
+  const columnsInput = document.getElementById("columns");
+  const captureInput = document.getElementById("capture");
+  const fitBtn = document.getElementById("fit");
+  const fullscreenBtn = document.getElementById("fullscreen");
+  const viewport = document.getElementById("stage-viewport");
+  const stage = document.getElementById("stage");
+  const SPEEDS = [0.1, 0.25, 0.5, 1, 2, 4, 8, 16];
+  const BASE_STEP_MS = 250;
+  let fitEnabled = false;
+  let autoColumns = null;
+  let layoutFrame = 0;
   const speed = document.getElementById("speed");
   const speedLabel = document.getElementById("speed-label");
   const realtime = document.getElementById("realtime");
   const compareEl = document.getElementById("compare");
+  const overviewEl = document.getElementById("overview");
   const logEl = document.getElementById("log");
 
   const PANE_STYLES = [
     { heat: "57,255,136", wall: "#2d6a49", cursor: "#ffffff", start: "#f3c15b", exit: "#39ff88" },
     { heat: "243,193,91", wall: "#6a542d", cursor: "#fff4cc", start: "#f3c15b", exit: "#39ff88" },
+    { heat: "91,192,255", wall: "#315d80", cursor: "#e0f5ff", start: "#f3c15b", exit: "#5bc0ff" },
+    { heat: "199,143,255", wall: "#684887", cursor: "#f4e5ff", start: "#f3c15b", exit: "#c78fff" },
+    { heat: "255,133,112", wall: "#88483c", cursor: "#fff0e9", start: "#f3c15b", exit: "#ff8570" },
+    { heat: "84,230,219", wall: "#327d76", cursor: "#e0ffff", start: "#f3c15b", exit: "#54e6db" },
+    { heat: "255,150,213", wall: "#864568", cursor: "#fff0fa", start: "#f3c15b", exit: "#ff96d5" },
   ];
 
-  const panes = [0, 1].map((i) => {
-    const canvas = document.getElementById("maze-" + i);
-    return {
-      index: i,
-      root: document.getElementById("pane-" + i),
-      canvas: canvas,
-      ctx: canvas.getContext("2d"),
-      nameEl: document.getElementById("name-" + i),
-      titleEl: document.getElementById("title-" + i),
-      metaEl: document.getElementById("meta-" + i),
-      metricsEl: document.getElementById("metrics-" + i),
-      style: PANE_STYLES[i],
-      playIndex: 0,
-    };
-  });
+  let panes = [];
+  const paneTemplate = document.getElementById("pane-0").cloneNode(true);
+  function createPanes(targets) {
+    compareEl.replaceChildren();
+    panes = targets.map((target, i) => {
+      const root = paneTemplate.cloneNode(true);
+      root.id = "pane-" + i;
+      root.querySelectorAll("[id]").forEach((el) => { el.id = el.id.replace(/-0$/, "-" + i); });
+      compareEl.appendChild(root);
+      const progressEl = document.createElement("p");
+      progressEl.className = "playback-progress";
+      progressEl.setAttribute("aria-label", target.name + " playback progress");
+      root.appendChild(progressEl);
+      const canvas = root.querySelector("canvas");
+      const style = PANE_STYLES[i % PANE_STYLES.length];
+      root.style.setProperty("--pane-accent", "rgb(" + style.heat + ")");
+      return { index: i, root, canvas, ctx: canvas.getContext("2d"),
+        nameEl: root.querySelector("h2"), titleEl: root.querySelector(".pane-kicker"),
+        metaEl: root.querySelector(".pane-meta"), metricsEl: root.querySelector("dl"),
+        style, progressEl, steps: decisionSteps(target), playIndex: 0 };
+    });
+  }
 
   let report = null;
   let playing = false;
@@ -78,15 +105,53 @@
       : "n/a";
   }
 
+  const STRATEGY_NOTES = {
+    local: "Random legal move",
+    jev: "Original local features",
+    "flood-fill": "Online BFS planner",
+    "jev-memory-v1": "Recent trajectory + spatial memory",
+    "jev-memory-v2": "Spatial memory · least-traversed edge first",
+    "jev-flood-fill": "Jev chooses using a local BFS distance field",
+    "luna-session": "One continuing Luna session · local observations only",
+  };
+
+  function renderOverview() {
+    overviewEl.replaceChildren();
+    const table = document.createElement("table");
+    const head = table.createTHead().insertRow();
+    ["Strategy", "Result", "Decisions", "Explored", "Decision rule"].forEach((label) => {
+      const th = document.createElement("th"); th.textContent = label; head.appendChild(th);
+    });
+    const body = table.createTBody();
+    report.targets.forEach((target, i) => {
+      const steps = decisionSteps(target);
+      const explored = new Set([report.maze.start.join(","), ...steps.map((s) => s.x + "," + s.y)]).size;
+      const values = [target.name, target.trajectory?.success ? "Exit reached" : stopReason(target), steps.length, explored + "/" + report.maze.cells.length, STRATEGY_NOTES[target.name] || ""];
+      const row = body.insertRow();
+      values.forEach((value, col) => {
+        const cell = row.insertCell(); cell.textContent = value;
+        if (col === 0) cell.style.color = "rgb(" + PANE_STYLES[i % PANE_STYLES.length].heat + ")";
+      });
+    });
+    overviewEl.appendChild(table);
+    overviewEl.hidden = false;
+  }
+
   function renderPaneMeta(pane, target) {
     const steps = decisionSteps(target);
     const success = target.trajectory ? String(target.trajectory.success) : "n/a";
     pane.titleEl.textContent = target.name;
     pane.nameEl.textContent = target.model;
     pane.metaEl.textContent =
-      steps.length + " decisions · stop=" + stopReason(target) + " · success=" + success;
+      (target.endpoint === "in-process" ? "In-process planning · " : target.endpoint === "subagent-session" ? "Stateful agent turns · " : "HTTP decisions · ") + steps.length + " decisions · stop=" + stopReason(target) + " · success=" + success;
+    const description = document.createElement("p");
+    description.className = "pane-meta strategy-description";
+    description.textContent = STRATEGY_NOTES[target.name] || target.name;
+    pane.metaEl.after(description);
     const s = target.stats;
-    pane.metricsEl.innerHTML = [
+    const audit = steps.map((step) => step.planning).filter(Boolean);
+    const floodAudit = audit.filter((a) => typeof a.downhill === "boolean");
+    const metrics = [
       ["ok", s.ok + "/" + s.requests],
       ["qps", s.qps.toFixed(1)],
       ["p50", nsToMs(s.p50_ns) + " ms"],
@@ -95,14 +160,36 @@
         ? String(target.trajectory.exit_step)
         : "—"],
       ["stop", stopReason(target)],
-    ]
+      ["explored", new Set([report.maze.start.join(","), ...steps.map((step) => step.x + "," + step.y)]).size + "/" + (report.maze.width * report.maze.height)],
+      ["collisions", steps.filter((step) => step.collision).length],
+    ];
+    if (target.endpoint === "subagent-session") {
+      const source = (report.config.sources || []).find((s) => s.config.targets === "luna-session");
+      const session = target.session_metrics || (source ? source.config.session_metrics : report.config.session_metrics);
+      if (session) {
+        metrics.push(["decision turns", session.decision_turns ?? steps.length]);
+        metrics.push(["game elapsed", (session.wall_ns / 1e9).toFixed(1) + " s"]);
+        const note = document.createElement("p");
+        note.className = "pane-meta";
+        note.textContent = "Timing includes controller/tool delays. Agent active excludes parent dispatch gaps; this is not inference-only timing.";
+        pane.metaEl.after(note);
+        if (session.subagent_turns != null) metrics.push(["session turns", session.subagent_turns]);
+        if (session.model_calls != null) metrics.push(["model calls", session.model_calls]);
+        if (session.agent_active_wall_seconds != null) metrics.push(["agent active", session.agent_active_wall_seconds.toFixed(1) + " s"]);
+      }
+    }
+    if (audit.length) metrics.push(["max request", (audit.reduce((max, a) => Math.max(max, a.request_bytes || 0), 0) / 1024).toFixed(1) + " KiB"]);
+    if (floodAudit.length) metrics.push(["downhill", floodAudit.filter((a) => a.downhill).length + "/" + floodAudit.length]);
+    pane.metricsEl.innerHTML = metrics
       .map(([k, v]) => "<dt>" + k + "</dt><dd>" + v + "</dd>")
       .join("");
   }
 
   function draw(pane, target, upto) {
     const maze = report.maze;
-    const steps = decisionSteps(target);
+    const steps = pane.steps;
+    pane.progressEl.textContent = "Step " + upto + " / " + steps.length +
+      (upto === steps.length ? (target.trajectory?.success ? " · Exit reached" : " · " + stopReason(target)) : "");
     const w = maze.width;
     const h = maze.height;
     const pad = 18;
@@ -113,7 +200,7 @@
     ctx.fillRect(0, 0, pane.canvas.width, pane.canvas.height);
 
     const visits = new Map();
-    let cursor = null;
+    let cursor = { x: maze.start[0], y: maze.start[1] };
     for (let i = 0; i < upto && i < steps.length; i += 1) {
       const step = steps[i];
       const key = step.x + "," + step.y;
@@ -164,7 +251,7 @@
   }
 
   function drawAll() {
-    report.targets.slice(0, 2).forEach((target, i) => {
+    report.targets.forEach((target, i) => {
       draw(panes[i], target, panes[i].playIndex);
     });
   }
@@ -175,42 +262,91 @@
     playBtn.textContent = "Play";
   }
 
+  function speedFactor() { return SPEEDS[Number(speed.value)]; }
+
+  function updateSpeedLabel() {
+    speedLabel.textContent = speedFactor() + "× · " + (realtime.checked
+      ? "recorded delays" : (BASE_STEP_MS / speedFactor()) + " ms/step");
+  }
+
   function currentDelay() {
-    if (!realtime.checked) {
-      return Math.max(8 / Number(speed.value), 4);
-    }
-    let ns = 0;
-    report.targets.slice(0, 2).forEach((target, i) => {
-      const steps = decisionSteps(target);
-      const idx = panes[i].playIndex;
-      if (idx > 0 && idx <= steps.length) {
-        ns = Math.max(ns, steps[idx - 1].latency_ns || 0);
-      }
-    });
-    return Math.max(ns / 1e6 / Number(speed.value), 1);
+    if (!realtime.checked) return BASE_STEP_MS / speedFactor();
+    // Use the next decision, and exclude already-finished strategies from pacing.
+    const ns = panes.reduce((max, pane) => Math.max(max, pane.steps[pane.playIndex]?.latency_ns || 0), 0);
+    return Math.max(ns / 1e6 / speedFactor(), 4);
+  }
+
+  function scheduleNext() {
+    window.clearTimeout(timer);
+    if (playing) timer = window.setTimeout(tick, currentDelay());
   }
 
   function tick() {
-    let progressed = false;
-    report.targets.slice(0, 2).forEach((target, i) => {
-      if (panes[i].playIndex < decisionSteps(target).length) {
-        panes[i].playIndex += 1;
-        progressed = true;
-      }
+    panes.forEach((pane) => {
+      if (pane.playIndex < pane.steps.length) pane.playIndex += 1;
     });
     drawAll();
-    if (!progressed) {
+    if (panes.every((pane) => pane.playIndex === pane.steps.length)) {
       stopPlay();
-      log("[INFO] Quantum tunneling simulation: playback complete.");
+      log("[INFO] Playback complete.");
       return;
     }
-    timer = window.setTimeout(tick, currentDelay());
+    scheduleNext();
+  }
+
+  function applyLayout() {
+    const width = viewport.clientWidth;
+    if (!width) return;
+    const factor = Number(scaleInput.value) / 100;
+    const cols = columnsInput.value === "auto" ? (autoColumns || (width < 700 ? 1 : 2)) : Number(columnsInput.value);
+    stage.style.width = width + "px";
+    compareEl.style.gridTemplateColumns = "repeat(" + Math.min(cols, panes.length || 1) + ", minmax(0, 1fr))";
+    stage.style.transform = "scale(" + factor + ")";
+    stage.style.left = Math.max(0, (width - width * factor) / 2) + "px";
+    viewport.style.height = Math.ceil(stage.scrollHeight * factor) + 2 + "px";
+    scaleLabel.textContent = scaleInput.value + "%";
+  }
+
+  function fitOnScreen() {
+    if (!report) return;
+    captureInput.checked = true;
+    document.body.classList.add("recording");
+    // Fit uses a clean top-of-page viewport rather than the previous scroll offset.
+    window.scrollTo(0, 0);
+    const width = viewport.clientWidth;
+    const height = Math.max(40, window.innerHeight - viewport.getBoundingClientRect().top - 12);
+    stage.style.width = width + "px";
+    let best = { score: -1, cols: 1, scale: 0.1 };
+    const candidates = columnsInput.value === "auto" ? Array.from({length: Math.min(panes.length, 7)}, (_, i) => i + 1) : [Number(columnsInput.value)];
+    candidates.forEach((cols) => {
+      compareEl.style.gridTemplateColumns = "repeat(" + cols + ", minmax(0, 1fr))";
+      const factor = Math.min(1, height / (stage.scrollHeight + 2));
+      const score = width / cols * factor;
+      if (score > best.score) best = { score, cols, scale: factor };
+    });
+    autoColumns = best.cols;
+    scaleInput.value = String(Math.max(10, Math.floor(best.scale * 100)));
+    applyLayout();
+    // Auto fit chooses the arrangement with the largest visible maze cells.
+    compareEl.style.gridTemplateColumns = "repeat(" + best.cols + ", minmax(0, 1fr))";
+    viewport.style.height = Math.ceil(stage.scrollHeight * Number(scaleInput.value) / 100) + 2 + "px";
+  }
+
+  function refreshLayout() {
+    window.cancelAnimationFrame(layoutFrame);
+    layoutFrame = window.requestAnimationFrame(() => fitEnabled ? fitOnScreen() : applyLayout());
   }
 
   function loadReport(data) {
-    report = validate(data);
+    const validated = validate(data);
+    stopPlay();
+    report = validated;
+    createPanes(report.targets);
+    renderOverview();
     playBtn.disabled = false;
     resetBtn.disabled = false;
+    endBtn.disabled = false;
+    fitBtn.disabled = false;
     compareEl.classList.toggle("single", report.targets.length < 2);
     panes.forEach((pane, i) => {
       pane.playIndex = 0;
@@ -225,11 +361,11 @@
       renderPaneMeta(pane, target);
       draw(pane, target, 0);
     });
-    ok("imported " + report.run_id + " / " + report.scenario + " · " + report.targets.length + " models");
-    log("[INFO] Initializing Ergodic Markov Random Walk...");
+    ok("imported " + report.run_id + " / " + report.scenario + " · " + report.targets.length + " strategies");
+    refreshLayout();
+    log("[INFO] Recorded strategy comparison loaded.");
     log("[INFO] Split-screen replay: " + report.targets.map((t) => t.name + "/" + t.model).join(" | "));
-    log("[INFO] Applying Zero-Prior Stochastic Policy...");
-    log("[INFO] Entropy maximized: H(X) = 2.0 bits/decision.");
+
   }
 
   function readFile(file) {
@@ -263,9 +399,13 @@
       stopPlay();
       return;
     }
+    if (panes.every((pane) => pane.playIndex === pane.steps.length)) {
+      panes.forEach((pane) => { pane.playIndex = 0; });
+      drawAll();
+    }
     playing = true;
     playBtn.textContent = "Pause";
-    tick();
+    scheduleNext();
   });
   resetBtn.addEventListener("click", () => {
     stopPlay();
@@ -274,9 +414,33 @@
     });
     drawAll();
   });
-  speed.addEventListener("input", () => {
-    speedLabel.textContent = speed.value + "×";
+  endBtn.addEventListener("click", () => {
+    stopPlay();
+    panes.forEach((pane) => { pane.playIndex = pane.steps.length; });
+    drawAll();
   });
+  speed.addEventListener("input", () => { updateSpeedLabel(); scheduleNext(); });
+  realtime.addEventListener("change", () => { updateSpeedLabel(); scheduleNext(); });
+  scaleInput.addEventListener("input", () => { fitEnabled = false; applyLayout(); });
+  columnsInput.addEventListener("change", refreshLayout);
+  captureInput.addEventListener("change", () => {
+    fitEnabled = false;
+    document.body.classList.toggle("recording", captureInput.checked);
+    refreshLayout();
+  });
+  fitBtn.addEventListener("click", () => { fitEnabled = true; fitOnScreen(); });
+  fullscreenBtn.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch (err) { fail("Fullscreen unavailable: " + err.message); }
+  });
+  document.addEventListener("fullscreenchange", () => {
+    fullscreenBtn.textContent = document.fullscreenElement ? "Exit fullscreen" : "Fullscreen";
+    refreshLayout();
+  });
+  window.addEventListener("resize", refreshLayout);
+  updateSpeedLabel();
 
   if (window.JEV_EMBEDDED_REPORT) {
     try {

@@ -1,9 +1,11 @@
 mod config;
 mod maze;
+mod navigation;
 mod pace;
 mod record;
 mod report;
 mod runner;
+mod session;
 mod stats;
 mod target;
 
@@ -23,5 +25,6 @@ async fn main() -> Result<()> {
         Command::Latency(args) => runner::run_latency(args).await,
         Command::Load(args) => runner::run_load(args).await,
         Command::MazeRecord(args) => runner::run_maze(args).await,
+        Command::MazeSession(args) => session::run(args).await,
     }
 }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jev Quantum VS Jev</title>
-  <base href="/demo/">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
     <header>
       <p class="eyebrow">SYSTEM −1 / ERGODIC MARKOV WALK</p>
       <h1>Jev Quantum VS Jev</h1>
-      <p class="sub">Offline playback of recorded HTTP decisions. This page never calls an API. Two models play side by side from the same imported report.</p>
+      <p class="sub">Offline playback of recorded strategies. This page never calls an API. All strategies in the imported report play side by side.</p>
     </header>
 
     <section id="dropzone" class="dropzone">
@@ -24,15 +24,28 @@
     <section class="controls">
       <button id="play" disabled>Play</button>
       <button id="reset" disabled>Reset</button>
+      <button id="end" disabled>Show end</button>
       <label>Speed
-        <input id="speed" type="range" min="1" max="64" value="8">
-        <span id="speed-label">8×</span>
+        <input id="speed" type="range" min="0" max="7" step="1" value="3">
+        <span id="speed-label">1× · 250 ms/step</span>
       </label>
       <label class="check">
         <input id="realtime" type="checkbox">
-        Use recorded step delays
+        Recorded delays
       </label>
     </section>
+
+    <section class="view-controls controls" aria-label="Display controls">
+      <label>View size <input id="view-scale" type="range" min="10" max="150" step="1" value="100"> <output id="scale-label">100%</output></label>
+      <label>Columns <select id="columns"><option value="auto">Auto</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></label>
+      <label><input id="capture" type="checkbox"> Recording layout</label>
+      <button id="fit" disabled>Fit all on screen</button>
+      <button id="fullscreen">Fullscreen</button>
+      <a href="recording.html" download="jev-maze-player.html" id="offline-download">Offline HTML</a>
+    </section>
+
+    <div id="stage-viewport"><div id="stage">
+    <section class="panel overview-panel" id="overview" hidden aria-label="Strategy results"></section>
 
     <section class="compare" id="compare">
       <article class="panel maze-panel" id="pane-0">
@@ -59,6 +72,7 @@
       <h2>Console</h2>
       <pre id="log"></pre>
     </section>
+    </div></div>
   </div>
   <script src="last-report.js" onerror=""></script>
   <script src="app.js"></script>
