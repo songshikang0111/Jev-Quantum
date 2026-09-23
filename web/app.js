@@ -49,7 +49,19 @@
       const progressEl = document.createElement("p");
       progressEl.className = "playback-progress";
       progressEl.setAttribute("aria-label", target.name + " playback progress");
-      root.appendChild(progressEl);
+      const footer = document.createElement("div");
+      footer.className = "pane-footer";
+      const latencyEl = document.createElement("p");
+      latencyEl.className = "playback-latency";
+      const p50 = target.stats?.p50_ns;
+      const scope = target.endpoint === "in-process" ? "本地计算" : target.endpoint === "subagent-session" ? "含工具调度" : "HTTP";
+      latencyEl.textContent = "P50 " + (typeof p50 === "number" ? nsToMs(p50) + " ms" : "—");
+      latencyEl.title = "全程响应时间中位数 · " + scope + "；不是回放速度";
+      const scopeEl = document.createElement("small");
+      scopeEl.textContent = scope;
+      latencyEl.appendChild(scopeEl);
+      footer.append(progressEl, latencyEl);
+      root.appendChild(footer);
       const canvas = root.querySelector("canvas");
       const style = PANE_STYLES[i % PANE_STYLES.length];
       root.style.setProperty("--pane-accent", "rgb(" + style.heat + ")");
@@ -257,6 +269,7 @@
   }
 
   function drawAll() {
+    document.getElementById("seek-step").value = Math.max(0, ...panes.map(p => p.playIndex));
     report.targets.forEach((target, i) => {
       draw(panes[i], target, panes[i].playIndex);
     });
@@ -352,6 +365,10 @@
     playBtn.disabled = false;
     resetBtn.disabled = false;
     endBtn.disabled = false;
+    const seek = document.getElementById("seek-step");
+    seek.disabled = false;
+    seek.max = Math.max(...panes.map(p => p.steps.length));
+    seek.value = 0;
     fitBtn.disabled = false;
     compareEl.classList.toggle("single", report.targets.length < 2);
     panes.forEach((pane, i) => {
@@ -423,6 +440,13 @@
   endBtn.addEventListener("click", () => {
     stopPlay();
     panes.forEach((pane) => { pane.playIndex = pane.steps.length; });
+    drawAll();
+  });
+  document.getElementById("seek-step").addEventListener("input", (event) => {
+    if (!report) return;
+    stopPlay();
+    const index = Math.max(0, Math.min(Number(event.target.max), Math.floor(Number(event.target.value) || 0)));
+    panes.forEach(p => { p.playIndex = Math.min(index, p.steps.length); });
     drawAll();
   });
   speed.addEventListener("input", () => { updateSpeedLabel(); scheduleNext(); });

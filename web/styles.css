@@ -175,3 +175,14 @@ body.recording .maze-panel { padding: 10px; }
 body.recording .pane-head { margin-bottom: 8px; }
 body.recording .pane-kicker { font-size: 14px; letter-spacing: 0.05em; overflow-wrap: anywhere; }
 body.recording .playback-progress { font-size: 14px; min-height: 2.4em; }
+
+.pane-footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; min-height: 48px; }
+.pane-footer .playback-progress { flex: 1; min-width: 0; margin-bottom: 0; }
+.playback-latency { margin: 8px 0 0; text-align: right; white-space: nowrap; font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.playback-latency small { display: block; color: var(--dim); font-size: 11px; margin-top: 3px; }
+#seek-step { width: 72px; color: var(--ink); background: var(--panel); border: 1px solid var(--dim); padding: 5px; }
+body.recording .playback-progress { min-height: 0; }
+body.recording .pane-kicker { font-size: 18px; }
+body.recording .playback-progress, body.recording .playback-latency { font-size: 16px; }
+body.recording .playback-latency small { font-size: 12px; }
+#seek-step { caret-color: transparent; }

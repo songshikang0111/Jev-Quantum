@@ -100,3 +100,10 @@ reports/memory-v1-long/*
 !reports/0923showcase.player.html
 !web/last-report.js
 !web/recording.html
+
+# Temporary browser recording preview
+/web/article-recording.html
+
+# Published comparison replay
+!reports/article-selected-seven.replay.mp4
+!reports/article-selected-seven.replay.png
